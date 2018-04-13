@@ -1,0 +1,62 @@
+#canvas.ca-1 .square.red {
+  left: 0;
+  width: 100%;
+  height: 50%; }
+
+#canvas.ca-1 .square.green {
+  top: 50%;
+  width: 50%;
+  height: 50%; }
+
+#canvas.ca-1 .square.blue {
+  top: 50%;
+  width: 50%;
+  height: 50%; }
+
+#canvas.ca-2 .square.red {
+  top: 41.2%;
+  left: 45%;
+  width: 5%;
+  height: 8.8%; }
+
+#canvas.ca-2 .square.green {
+  top: 50%;
+  right: 47.5%;
+  width: 5%;
+  height: 8.8%; }
+
+#canvas.ca-2 .square.blue {
+  top: 41.2%;
+  left: 50%;
+  width: 5%;
+  height: 8.8%; }
+
+#canvas.ca-3 .square.red {
+  left: 44%;
+  border-radius: 100px; }
+
+#canvas.ca-3 .square.green {
+  background-color: red;
+  right: 47.5%;
+  top: 47.5%;
+  transform: rotate(45deg); }
+
+#canvas.ca-3 .square.blue {
+  left: 51%;
+  background-color: red;
+  border-radius: 100px; }
+
+#canvas.ca-4 .square.green:after {
+  width: 60%; }
+
+#canvas.ca-4 .square.green:before {
+  height: 60%; }
+
+#canvas.ca-4 .label {
+  opacity: 1; }
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg); }
+  to {
+    -webkit-filter: hue-rotate(-360deg); } }

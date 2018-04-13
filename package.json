@@ -1,0 +1,15 @@
+{
+    "name": "jquery-canvas-animation",
+    "version": "0.3.0",
+    "description": "jQuery Plugin - Canvas Animation",
+    "author": "InsanityMeetsHH",
+    "license": "ISC",
+    "devDependencies": {
+        "browser-sync": "^2.13.0",
+        "gulp": "^3.9.1",
+        "gulp-clean-css": "^3.9.0",
+        "gulp-sass": "^3.1.0",
+        "gulp-rename": "^1.2.2",
+        "gulp-uglify": "^1.5.4"
+    }
+}

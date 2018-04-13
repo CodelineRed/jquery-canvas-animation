@@ -1,0 +1,40 @@
+.controls {
+    padding-top: 25px;
+    width: 95px;
+    height: 25px;
+    margin: auto;
+    
+    &> div {
+        position: relative;
+        border: 1px solid black;
+        cursor: pointer;
+        width: 25px;
+        height: 25px;
+        float: left;
+        margin-right: 5px;
+        
+        &:before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            content: '';
+        }
+        
+        &:last-child {
+            margin-right: 0;
+        }
+    }
+    
+    .play:before {
+        border-left: 10px solid black;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+    }
+    
+    .reset:before {
+        width: 15px;
+        height: 15px;
+        background-color: black;
+    }
+}
