@@ -23,9 +23,16 @@
   [class*="canvas-ratio-"].canvas-ratio-1by1::before {
     padding-top: 100%; }
 
+:fullscreen [class*="canvas-ratio-"],
+:-ms-fullscreen [class*="canvas-ratio-"],
+:-moz-full-screen [class*="canvas-ratio-"],
+:-webkit-fullscreen [class*="canvas-ratio-"] {
+  width: auto !important;
+  max-width: none !important; }
+
 .controls {
   padding-top: 25px;
-  width: 95px;
+  width: 125px;
   height: 25px;
   margin: auto; }
   .controls > div {
@@ -48,10 +55,32 @@
     border-left: 10px solid black;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent; }
+  .controls .pause:before {
+    content: 'll';
+    font-weight: bold;
+    font-size: 20px; }
   .controls .reset:before {
     width: 15px;
     height: 15px;
     background-color: black; }
   .controls .fullscreen:before {
-    content: 'FS';
-    font-family: Arial, sans-serif; }
+    content: 'FS'; }
+  .controls > .fas.play:before,
+  .controls > .fa.play:before {
+    border: 0 none; }
+  .controls > .fas.reset:before,
+  .controls > .fa.reset:before {
+    width: auto;
+    height: auto; }
+  .controls > .fas.fa-play:before,
+  .controls > .fa.fa-play:before {
+    content: '\f04b'; }
+  .controls > .fas.fa-pause:before,
+  .controls > .fa.fa-pause:before {
+    content: '\f04c'; }
+  .controls > .fas.fa-stop:before,
+  .controls > .fa.fa-stop:before {
+    content: '\f04d'; }
+  .controls > .fas.fa-expand:before,
+  .controls > .fa.fa-expand:before {
+    content: '\f065'; }

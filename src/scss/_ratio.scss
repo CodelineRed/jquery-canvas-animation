@@ -37,3 +37,11 @@
         padding-top: percentage(1 / 1);
     }
 }
+
+:fullscreen [class*="canvas-ratio-"], 
+:-ms-fullscreen [class*="canvas-ratio-"],
+:-moz-full-screen [class*="canvas-ratio-"], 
+:-webkit-fullscreen [class*="canvas-ratio-"] {
+    width: auto!important;
+    max-width: none!important;
+}

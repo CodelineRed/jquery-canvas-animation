@@ -1,5 +1,7 @@
 var caConfig = {
 //    autoplay : false,
+    controls_fa: 5,
+//    infinity: false,
     steps : [
         {
             addClass : 'ca-1',
