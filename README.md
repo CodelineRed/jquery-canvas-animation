@@ -7,22 +7,10 @@
 ```js
 $('#canvas').canvasAnimation({
     steps : [
-        // example steps
         {
-            addClass : 'ca-1',
-            duration : 800
-        },
-        {
-            addClass : 'ca-2',
-            duration : 800
-        },
-        {
-            addClass : 'ca-3',
-            duration : 800
-        },
-        {
-            addClass : 'ca-4',
-            duration : 500
+            addClass: '',    // adds one or more classes to #canvas ('foo bar' adds 2 classes)
+            removeClass: '', // remove one or more classes from #canvas ('foo bar' removes 2 classes)
+            duration: 800    // duration of this step (milliseconds)
         }
     ],
     timeout: 0, // 0 = starts immediately the first step (milliseconds)
@@ -52,5 +40,7 @@ $('#canvas').canvasAnimation({
 });
 ```
 
-## Upcoming Feature
+## Upcoming Features
+* Pause animation instantly
+* Reset animation instantly
 * Web editor

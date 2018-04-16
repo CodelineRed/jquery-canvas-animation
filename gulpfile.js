@@ -1,13 +1,13 @@
-var browserSync = require('browser-sync').create();
 var gulp        = require('gulp');
 var minifyCss   = require('gulp-clean-css');
 var rename      = require('gulp-rename');
 var sass        = require('gulp-sass');
 var uglify      = require('gulp-uglify');
+var browserSync = require('browser-sync').create();
 
-var sourcePath = "src/";
-var distPath = "dist/";
-var localServer = 'http://localhost/imhh-jquery-canvas-animation/example/';
+var sourcePath  = "src/";
+var distPath    = "dist/";
+var localServer = 'http://localhost/imhh-jca/example/';
 
 // processing scss to css and minify result
 gulp.task('scss', function() {

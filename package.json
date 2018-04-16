@@ -1,9 +1,25 @@
 {
     "name": "jquery-canvas-animation",
-    "version": "0.3.0",
+    "version": "0.3.1",
     "description": "jQuery Plugin - Canvas Animation",
-    "author": "InsanityMeetsHH",
+    "keywords": [
+        "jquery",
+        "plugin",
+        "animation"
+    ],
+    "author": {
+        "name": "InsanityMeetsHH",
+        "email": "software@insanitymeetshh.net"
+    },
+    "bugs": {
+        "url": "https://github.com/InsanityMeetsHH/jquery-canvas-animation/issues"
+    },
     "license": "ISC",
+    "homepage": "http://ca.insanitymeetshh.net",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/InsanityMeetsHH/jquery-canvas-animation.git"
+    },
     "devDependencies": {
         "browser-sync": "^2.13.0",
         "gulp": "^3.9.1",
