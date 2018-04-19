@@ -1,7 +1,7 @@
 .controls {
     padding-top: 25px;
-    width: 95px;
-    height: 25px;
+    width: 125px;
+    height: 55px;
     margin: auto;
     
     &> div {
@@ -32,9 +32,47 @@
         border-bottom: 10px solid transparent;
     }
     
+    .pause:before {
+        content: 'll';
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
     .reset:before {
         width: 15px;
         height: 15px;
         background-color: black;
+    }
+    
+    .fullscreen:before {
+        content: 'FS';
+    }
+    
+    &> .fas,
+    &> .fa {
+        &.play:before {
+            border: 0 none;
+        }
+    
+        &.reset:before {
+            width: auto;
+            height: auto;
+        }
+        
+        &.fa-play:before {
+            content: '\f04b';
+        }
+        
+        &.fa-pause:before {
+            content: '\f04c';
+        }
+        
+        &.fa-stop:before {
+            content: '\f04d';
+        }
+        
+        &.fa-expand:before {
+            content: '\f065';
+        }
     }
 }
