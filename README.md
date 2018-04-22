@@ -47,4 +47,7 @@ $('#canvas').canvasAnimation({
 ```
 
 ## Upcoming Features
+* Step by step control "(fa-)step-forward" + "(fa-)step-backward"
 * Web editor
+
+**This software is in development. Could have bugs.**
