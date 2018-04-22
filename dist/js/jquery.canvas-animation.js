@@ -3,7 +3,7 @@
         var thisCanvas = this;
 
         var config = $.extend({
-            steps : [],
+            steps: [],
             timeout: 0, // 0 = starts immediately the first step (milliseconds)
             reset_duration: 500, // time it takes to reset all animations (milliseconds)
             infinity: true, // if true: plays animation infinity
@@ -30,6 +30,9 @@
             callback_wait: null  // called if class_wait was added
         }, config );
         var infinity = config.infinity;
+        var animationTimeouts = [];
+        var currentAnimationStep = -1;
+        var lastStepTimeout;
         
         thisCanvas.wrap('<div class="' + config.class_wrap + '"></div>');
         
@@ -60,7 +63,10 @@
         if (config.controls) {
             thisCanvas.closest('.' + config.class_wrap).append(config.controls_template);
         }
-
+        
+        /**
+         * @returns {void}
+         */
         var callCallback = function(callback) {
             // if callback is defined
             if (callback) {
@@ -68,6 +74,9 @@
             }
         };
         
+        /**
+         * @returns {void}
+         */
         var enterFullscreen = function(element) {
             if(element.requestFullscreen) {
                 element.requestFullscreen();
@@ -80,6 +89,9 @@
             }
         };
         
+        /**
+         * @returns {void}
+         */
         var exitFullscreen = function() {
             if(document.exitFullscreen) {
                 document.exitFullscreen();
@@ -90,9 +102,16 @@
             }
         };
         
+        /**
+         * @returns {void}
+         */
         var play = function() {
             var timeout = config.timeout;
-            reset();
+            animationTimeouts = [];
+            
+            if (thisCanvas.hasClass(config.class_done)) {
+                reset();
+            }
             
             // if has class done
             if (thisCanvas.hasClass(config.class_done)) {
@@ -105,31 +124,76 @@
             
             // play animation
             $.each(config.steps, function(key, value) {
-                setTimeout(function() {
-                    thisCanvas.addClass(value.addClass);
-                    thisCanvas.removeClass(value.removeClass);
-                }, timeout);
-                timeout += value.duration;
+                if (currentAnimationStep < key) {
+                    var animationTimeout = setTimeout(function() {
+                        currentAnimationStep = key;
+                        thisCanvas.addClass(value.addClass);
+                        thisCanvas.removeClass(value.removeClass);
 
-                // if is last step
-                if (config.steps.length - 1 === key) {
-                    setTimeout(function() {
-                        thisCanvas.addClass(config.class_done);
-                        if (config.infinity) {
-                            play();
-                        } else {
-                            callCallback(config.callback_done);
+                        // if is last step
+                        if (config.steps.length - 1 === key) {
+                            lastStep(value.duration);
                         }
                     }, timeout);
+                    timeout += value.duration;
+                    animationTimeouts.push(animationTimeout);
+                } else {
+                    // if currentAnimationStep is pointing to last step
+                    if (currentAnimationStep === key) {
+                        lastStep(value.duration);
+                    }
                 }
             });
         };
         
+        /**
+         * @param {int} duration
+         * @returns {void}
+         */
+        var lastStep = function(duration) {
+            lastStepTimeout = setTimeout(function() {
+                thisCanvas.addClass(config.class_done);
+                if (config.infinity) {
+                    play();
+                } else {
+                    callCallback(config.callback_done);
+                }
+            }, duration);
+        };
+        
+        /**
+         * @returns {void}
+         */
         var reset = function() {
             // reset classes
             $.each(config.steps, function(key, value) {
                 thisCanvas.removeClass(value.addClass);
             });
+            currentAnimationStep = -1;
+        };
+        
+        /**
+         * @param {bool} callReset
+         * @returns {void}
+         */
+        var stop = function(callReset) {
+            // if animationSteps is not empty
+            if (animationTimeouts.length > 0) {
+                $.each(animationTimeouts, function(key, value) {
+                    clearTimeout(animationTimeouts[key]);
+                });
+                
+                if (callReset) {
+                    reset();
+                }
+                
+                thisCanvas.addClass(config.class_wait);
+                callCallback(config.callback_wait);
+                
+                if (typeof lastStepTimeout !== 'undefined') {
+                    clearTimeout(lastStepTimeout);
+                }
+            }
         };
         
         // if is autoplay
@@ -161,16 +225,18 @@
         // click on pause
         thisCanvas.next(config.controls_wrapper).find(config.pause_button).click(function() {
             config.infinity = false;
+            stop(false);
         });
         
         // click on reset
         thisCanvas.next(config.controls_wrapper).find(config.reset_button).click(function() {
             config.infinity = false;
+            stop(true);
             
             if (thisCanvas.hasClass(config.class_done)) {
                 reset();
-                thisCanvas.addClass(config.class_wait);
                 thisCanvas.removeClass(config.class_done);
+                thisCanvas.addClass(config.class_wait);
                 callCallback(config.callback_wait);
             }
         });

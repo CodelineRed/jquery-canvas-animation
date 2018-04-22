@@ -1,7 +1,7 @@
 .controls {
     padding-top: 25px;
     width: 125px;
-    height: 55px;
+    height: 30px;
     margin: auto;
     
     &> div {
@@ -65,6 +65,8 @@
         
         &.fa-pause:before {
             content: '\f04c';
+            font-weight: inherit;
+            font-size: 1rem;
         }
         
         &.fa-stop:before {

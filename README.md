@@ -2,11 +2,17 @@
 
 [**Demo page**](http://ca.insanitymeetshh.net)
 
+## Available at [NPM](https://www.npmjs.com/package/jquery-canvas-animation)
+
+```bash
+$ npm i jquery-canvas-animation
+```
+
 ## Documentation
 
 ```js
 $('#canvas').canvasAnimation({
-    steps : [
+    steps: [
         {
             addClass: '',    // adds one or more classes to #canvas ('foo bar' adds 2 classes)
             removeClass: '', // remove one or more classes from #canvas ('foo bar' removes 2 classes)
@@ -25,7 +31,7 @@ $('#canvas').canvasAnimation({
     reset_button: '.reset', // class of reset button
     fullscreen_button: '.fullscreen', // class of fullscreen button
     class_done: 'done', // is set if the animation is done
-    class_wait: 'wait', // is set if autoplay : false and animation is never played or user clicked on reset button
+    class_wait: 'wait', // is set if autoplay: false and animation is never played or user clicked on reset button
     class_wrap: 'canvas-animation',
     controls_template:
         '<div class="controls">' +
@@ -41,6 +47,4 @@ $('#canvas').canvasAnimation({
 ```
 
 ## Upcoming Features
-* Pause animation instantly
-* Reset animation instantly
 * Web editor
