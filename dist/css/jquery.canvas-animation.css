@@ -32,7 +32,7 @@
 
 .controls {
   padding-top: 25px;
-  width: 125px;
+  width: 190px;
   height: 30px;
   margin: auto; }
   .controls > div {
@@ -43,7 +43,7 @@
     height: 25px;
     float: left;
     margin-right: 5px; }
-    .controls > div:before {
+    .controls > div:after, .controls > div:before {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -51,38 +51,77 @@
       content: ''; }
     .controls > div:last-child {
       margin-right: 0; }
+  .controls .step-backward:after {
+    width: 3px;
+    height: 17px;
+    background-color: black;
+    left: 25%; }
+  .controls .step-backward:before {
+    left: 65%;
+    border-right: 10px solid black;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent; }
   .controls .play:before {
     border-left: 10px solid black;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent; }
   .controls .pause:before {
-    content: 'll';
-    font-weight: bold;
-    font-size: 20px; }
+    width: 3px;
+    height: 17px;
+    border-left: 3px solid black;
+    border-right: 3px solid black; }
   .controls .reset:before {
     width: 15px;
     height: 15px;
     background-color: black; }
+  .controls .step-forward:after {
+    width: 3px;
+    height: 17px;
+    background-color: black;
+    left: 80%; }
+  .controls .step-forward:before {
+    left: 40%;
+    border-left: 10px solid black;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent; }
   .controls .fullscreen:before {
     content: 'FS'; }
   .controls > .fas.play:before,
   .controls > .fa.play:before {
     border: 0 none; }
+  .controls > .fas.pause:before,
+  .controls > .fa.pause:before {
+    width: auto;
+    height: auto;
+    border: 0 none; }
   .controls > .fas.reset:before,
   .controls > .fa.reset:before {
     width: auto;
     height: auto; }
+  .controls > .fas.step-backward:after, .controls > .fas.step-forward:after,
+  .controls > .fa.step-backward:after,
+  .controls > .fa.step-forward:after {
+    background-color: transparent; }
+  .controls > .fas.step-backward:before, .controls > .fas.step-forward:before,
+  .controls > .fa.step-backward:before,
+  .controls > .fa.step-forward:before {
+    left: 50%;
+    border: 0 none; }
+  .controls > .fas.fa-step-backward:before,
+  .controls > .fa.fa-step-backward:before {
+    content: '\f048'; }
   .controls > .fas.fa-play:before,
   .controls > .fa.fa-play:before {
     content: '\f04b'; }
   .controls > .fas.fa-pause:before,
   .controls > .fa.fa-pause:before {
-    content: '\f04c';
-    font-weight: inherit;
-    font-size: 1rem; }
+    content: '\f04c'; }
   .controls > .fas.fa-stop:before,
   .controls > .fa.fa-stop:before {
     content: '\f04d'; }
+  .controls > .fas.fa-step-forward:before,
+  .controls > .fa.fa-step-forward:before {
+    content: '\f051'; }
   .controls > .fas.fa-expand:before,
   .controls > .fa.fa-expand:before {
     content: '\f065'; }

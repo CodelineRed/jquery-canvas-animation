@@ -1,5 +1,5 @@
 var caConfig = {
-//    autoplay : false,
+    autoplay : false,
     controls_fa: 5,
 //    infinity: false,
     steps : [

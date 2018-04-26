@@ -11,18 +11,24 @@
             controls: true, // if true: adds controls to canvas
             controls_fa: null, // fontawesome version (4 or 5)
             controls_wrapper: '.controls', // class of the controls wrapper
+            step_backward_button: '.step-backward', // class of step backward button
             play_button: '.play', // class of play button
             pause_button: '.pause', // class of pause button
             reset_button: '.reset', // class of reset button
+            step_forward_button: '.step-forward', // class of step forward button
             fullscreen_button: '.fullscreen', // class of fullscreen button
             class_done: 'done', // is set if the animation is done
             class_wait: 'wait', // is set if autoplay : false and animation is never played or user clicked on reset button
+            class_forward: 'forward', // is set if user clicked step-forward
+            class_backward: 'backward', // is set if user clicked step-backward
             class_wrap: 'canvas-animation',
             controls_template:
                 '<div class="controls">' +
+                    '<div class="step-backward #STEPBACKWARD#"></div>' +
                     '<div class="play #PLAY#"></div>' +
                     '<div class="pause #PAUSE#"></div>' +
                     '<div class="reset #RESET#"></div>' +
+                    '<div class="step-forward #STEPFORWARD#"></div>' +
                     '<div class="fullscreen #FULLSCREEN#"></div>' +
                 '</div>',
             callback_play: null, // called before first animation step
@@ -46,16 +52,20 @@
                     ns = 'fas';
                 }
                 
+                config.controls_template = config.controls_template.replace('#STEPBACKWARD#', ns + ' fa-step-backward');
                 config.controls_template = config.controls_template.replace('#PLAY#', ns + ' fa-play');
                 config.controls_template = config.controls_template.replace('#PAUSE#', ns + ' fa-pause');
                 config.controls_template = config.controls_template.replace('#RESET#', ns + ' fa-stop');
+                config.controls_template = config.controls_template.replace('#STEPFORWARD#', ns + ' fa-step-forward');
                 config.controls_template = config.controls_template.replace('#FULLSCREEN#', ns + ' fa-expand');
                 break;
                 
             default:
+                config.controls_template = config.controls_template.replace('#STEPBACKWARD#', '');
                 config.controls_template = config.controls_template.replace('#PLAY#', '');
                 config.controls_template = config.controls_template.replace('#PAUSE#', '');
                 config.controls_template = config.controls_template.replace('#RESET#', '');
+                config.controls_template = config.controls_template.replace('#STEPFORWARD#', '');
                 config.controls_template = config.controls_template.replace('#FULLSCREEN#', '');
         }
         
@@ -113,6 +123,10 @@
                 reset();
             }
             
+            if (thisCanvas.hasClass('forward')) {
+                currentAnimationStep--;
+            }
+            
             // if has class done
             if (thisCanvas.hasClass(config.class_done)) {
                 thisCanvas.removeClass(config.class_done);
@@ -137,11 +151,6 @@
                     }, timeout);
                     timeout += value.duration;
                     animationTimeouts.push(animationTimeout);
-                } else {
-                    // if currentAnimationStep is pointing to last step
-                    if (currentAnimationStep === key) {
-                        lastStep(value.duration);
-                    }
                 }
             });
         };
@@ -152,11 +161,13 @@
          */
         var lastStep = function(duration) {
             lastStepTimeout = setTimeout(function() {
-                thisCanvas.addClass(config.class_done);
-                if (config.infinity) {
-                    play();
-                } else {
-                    callCallback(config.callback_done);
+                if (!thisCanvas.hasClass(config.class_wait)) {
+                    thisCanvas.addClass(config.class_done);
+                    if (config.infinity) {
+                        play();
+                    } else {
+                        callCallback(config.callback_done);
+                    }
                 }
             }, duration);
         };
@@ -213,6 +224,36 @@
             }
         });
         
+        // click on step backward
+        thisCanvas.next(config.controls_wrapper).find(config.step_backward_button).click(function() {
+            if (thisCanvas.hasClass(config.class_done) || thisCanvas.hasClass(config.class_wait)) {
+                if (thisCanvas.hasClass(config.class_forward)) {
+                    currentAnimationStep--;
+                }
+                
+                thisCanvas.removeClass(config.class_forward);
+                thisCanvas.addClass(config.class_backward);
+                
+                // if step not exist
+                if (currentAnimationStep < 0) {
+                    currentAnimationStep = config.steps.length;
+                }
+                
+                // if is last step
+                if (currentAnimationStep === config.steps.length) {
+                    $.each(config.steps, function(key, value) {
+                        thisCanvas.addClass(value.addClass);
+                        thisCanvas.removeClass(value.removeClass);
+                    });
+                } else {
+                    thisCanvas.removeClass(config.steps[currentAnimationStep].addClass);
+                    thisCanvas.addClass(config.steps[currentAnimationStep].removeClass);
+                }
+                
+                currentAnimationStep--;
+            }
+        });
+        
         // click on play
         thisCanvas.next(config.controls_wrapper).find(config.play_button).click(function() {
             config.infinity = infinity;
@@ -232,12 +273,36 @@
         thisCanvas.next(config.controls_wrapper).find(config.reset_button).click(function() {
             config.infinity = false;
             stop(true);
-            
-            if (thisCanvas.hasClass(config.class_done)) {
-                reset();
-                thisCanvas.removeClass(config.class_done);
-                thisCanvas.addClass(config.class_wait);
-                callCallback(config.callback_wait);
+            reset();
+            thisCanvas.removeClass(config.class_done);
+            thisCanvas.addClass(config.class_wait);
+            callCallback(config.callback_wait);
+        });
+        
+        // click on step forward
+        thisCanvas.next(config.controls_wrapper).find(config.step_forward_button).click(function() {
+            if (thisCanvas.hasClass(config.class_done) || thisCanvas.hasClass(config.class_wait)) {
+                if (thisCanvas.hasClass(config.class_backward)) {
+                    currentAnimationStep++;
+                }
+                
+                thisCanvas.addClass(config.class_forward);
+                thisCanvas.removeClass(config.class_backward);
+                
+                // if step not exists
+                if (currentAnimationStep > config.steps.length || currentAnimationStep === -1) {
+                    currentAnimationStep = 0;
+                }
+                
+                // if is last step
+                if (currentAnimationStep === config.steps.length) {
+                    reset();
+                } else {
+                    thisCanvas.addClass(config.steps[currentAnimationStep].addClass);
+                    thisCanvas.removeClass(config.steps[currentAnimationStep].removeClass);
+                }
+                
+                currentAnimationStep++;
             }
         });
 

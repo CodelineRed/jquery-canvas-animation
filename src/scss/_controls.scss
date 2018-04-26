@@ -1,6 +1,6 @@
 .controls {
     padding-top: 25px;
-    width: 125px;
+    width: 190px;
     height: 30px;
     margin: auto;
     
@@ -13,6 +13,7 @@
         float: left;
         margin-right: 5px;
         
+        &:after,
         &:before {
             position: absolute;
             top: 50%;
@@ -26,6 +27,22 @@
         }
     }
     
+    .step-backward {
+        &:after {
+            width: 3px;
+            height: 17px;
+            background-color: black;
+            left: 25%;
+        }
+        
+        &:before {
+            left: 65%;
+            border-right: 10px solid black;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+        }
+    }
+    
     .play:before {
         border-left: 10px solid black;
         border-top: 10px solid transparent;
@@ -33,15 +50,32 @@
     }
     
     .pause:before {
-        content: 'll';
-        font-weight: bold;
-        font-size: 20px;
+        width: 3px;
+        height: 17px;
+        border-left: 3px solid black;
+        border-right: 3px solid black;
     }
     
     .reset:before {
         width: 15px;
         height: 15px;
         background-color: black;
+    }
+    
+    .step-forward {
+        &:after {
+            width: 3px;
+            height: 17px;
+            background-color: black;
+            left: 80%;
+        }
+        
+        &:before {
+            left: 40%;
+            border-left: 10px solid black;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+        }
     }
     
     .fullscreen:before {
@@ -54,9 +88,31 @@
             border: 0 none;
         }
     
+        &.pause:before {
+            width: auto;
+            height: auto;
+            border: 0 none;
+        }
+    
         &.reset:before {
             width: auto;
             height: auto;
+        }
+    
+        &.step-backward,
+        &.step-forward {
+            &:after {
+                background-color: transparent;
+            }
+
+            &:before {
+                left: 50%;
+                border: 0 none;
+            }
+        }
+        
+        &.fa-step-backward:before {
+            content: '\f048';
         }
         
         &.fa-play:before {
@@ -65,12 +121,14 @@
         
         &.fa-pause:before {
             content: '\f04c';
-            font-weight: inherit;
-            font-size: 1rem;
         }
         
         &.fa-stop:before {
             content: '\f04d';
+        }
+        
+        &.fa-step-forward:before {
+            content: '\f051';
         }
         
         &.fa-expand:before {

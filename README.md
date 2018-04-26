@@ -26,18 +26,24 @@ $('#canvas').canvasAnimation({
     controls: true, // if true: adds controls to canvas
     controls_fa: null, // fontawesome version (4 or 5)
     controls_wrapper: '.controls', // class of the controls wrapper
+    step_backward_button: '.step-backward', // class of step backward button
     play_button: '.play', // class of play button
     pause_button: '.pause', // class of pause button
     reset_button: '.reset', // class of reset button
+    step_forward_button: '.step-forward', // class of step forward button
     fullscreen_button: '.fullscreen', // class of fullscreen button
     class_done: 'done', // is set if the animation is done
     class_wait: 'wait', // is set if autoplay: false and animation is never played or user clicked on reset button
+    class_forward: 'forward', // is set if user clicked step-forward
+    class_backward: 'backward', // is set if user clicked step-backward
     class_wrap: 'canvas-animation',
     controls_template:
         '<div class="controls">' +
+            '<div class="step-backward #STEPBACKWARD#"></div>' +
             '<div class="play #PLAY#"></div>' +
             '<div class="pause #PAUSE#"></div>' +
             '<div class="reset #RESET#"></div>' +
+            '<div class="step-forward #STEPFORWARD#"></div>' +
             '<div class="fullscreen #FULLSCREEN#"></div>' +
         '</div>',
     callback_play: null, // called before first animation step
@@ -47,7 +53,6 @@ $('#canvas').canvasAnimation({
 ```
 
 ## Upcoming Features
-* Step by step control "(fa-)step-forward" + "(fa-)step-backward"
 * Web editor
 
 **This software is in development. Could have bugs.**
