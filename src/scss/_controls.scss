@@ -27,7 +27,7 @@
         }
     }
     
-    .step-backward {
+    .backward {
         &:after {
             width: 3px;
             height: 17px;
@@ -62,7 +62,7 @@
         background-color: black;
     }
     
-    .step-forward {
+    .forward {
         &:after {
             width: 3px;
             height: 17px;
@@ -99,8 +99,8 @@
             height: auto;
         }
     
-        &.step-backward,
-        &.step-forward {
+        &.backward,
+        &.forward {
             &:after {
                 background-color: transparent;
             }
