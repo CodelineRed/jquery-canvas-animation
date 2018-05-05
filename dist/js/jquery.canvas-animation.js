@@ -143,12 +143,22 @@
                         currentAnimationStep = key;
                         thisCanvas.addClass(value.addClass);
                         thisCanvas.removeClass(value.removeClass);
+                        
+                        if (typeof value.pause === 'boolean' && value.pause === true) {
+                            config.infinity = false;
+                            stop(false);
+                        }
 
                         // if is last step
                         if (config.steps.length - 1 === key) {
                             lastStep(value.duration);
                         }
                     }, timeout);
+                    
+                    if (typeof value.duration !== 'number') {
+                        value.duration = 500;
+                    }
+                    
                     timeout += value.duration;
                     animationTimeouts.push(animationTimeout);
                 }
@@ -161,8 +171,8 @@
          */
         var lastStep = function(duration) {
             lastStepTimeout = setTimeout(function() {
+                thisCanvas.addClass(config.class_done);
                 if (!thisCanvas.hasClass(config.class_wait)) {
-                    thisCanvas.addClass(config.class_done);
                     if (config.infinity) {
                         play();
                     } else {

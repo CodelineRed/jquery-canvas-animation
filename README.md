@@ -16,7 +16,8 @@ $('#canvas').canvasAnimation({
         {
             addClass: '',    // adds one or more classes to #canvas ('foo bar' adds 2 classes)
             removeClass: '', // remove one or more classes from #canvas ('foo bar' removes 2 classes)
-            duration: 800    // duration of this step (milliseconds)
+            duration: 500,   // duration of this step (milliseconds, default: 500)
+            pause: false     // pause animation at this point (boolean, default: false)
         }
     ],
     timeout: 0, // 0 = starts immediately the first step (milliseconds)

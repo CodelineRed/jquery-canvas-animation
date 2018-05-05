@@ -1,23 +1,21 @@
 var caConfig = {
-    autoplay : false,
+    autoplay: false,
     controls_fa: 5,
 //    infinity: false,
-    steps : [
+    steps: [
         {
-            addClass : 'ca-1',
-            duration : 800
+            addClass: 'ca-1'
         },
         {
-            addClass : 'ca-2',
-            duration : 800
+            addClass: 'ca-2',
+            duration: 800
         },
         {
-            addClass : 'ca-3',
-            duration : 800
+            addClass: 'ca-3',
+            duration: 800
         },
         {
-            addClass : 'ca-4',
-            duration : 500
+            addClass: 'ca-4',
         }
     ],
     callback_done: function() {
