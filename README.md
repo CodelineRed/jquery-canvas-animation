@@ -21,35 +21,35 @@ $('#canvas').canvasAnimation({
         }
     ],
     timeout: 0, // 0 = starts immediately the first step (milliseconds)
-    reset_duration: 500, // time it takes to reset all animations (milliseconds)
+    resetDuration: 500, // time it takes to reset all animations (milliseconds)
     infinity: true, // if true: plays animation infinity
     autoplay: true, // if true: plays animation instantly
     controls: true, // if true: adds controls to canvas
-    controls_fa: null, // fontawesome version (4 or 5)
-    controls_wrapper: '.controls', // class of the controls wrapper
-    step_backward_button: '.step-backward', // class of step backward button
-    play_button: '.play', // class of play button
-    pause_button: '.pause', // class of pause button
-    reset_button: '.reset', // class of reset button
-    step_forward_button: '.step-forward', // class of step forward button
-    fullscreen_button: '.fullscreen', // class of fullscreen button
-    class_done: 'done', // is set if the animation is done
-    class_wait: 'wait', // is set if autoplay: false and animation is never played or user clicked on reset button
-    class_forward: 'forward', // is set if user clicked step-forward
-    class_backward: 'backward', // is set if user clicked step-backward
-    class_wrap: 'canvas-animation',
-    controls_template:
+    fontawesomeVersion: null, // fontawesome version (4 or 5)
+    controlsWrapper: '.controls', // class of the controls wrapper
+    backwardButton: '.backward', // class of step backward button
+    playButton: '.play', // class of play button
+    pauseButton: '.pause', // class of pause button
+    resetButton: '.reset', // class of reset button
+    forwardButton: '.forward', // class of step forward button
+    fullscreenButton: '.fullscreen', // class of fullscreen button
+    classDone: 'done', // is set if the animation is done
+    classWait: 'wait', // is set if autoplay : false and animation is never played or user clicked on reset button
+    classForward: 'forward', // is set if user clicked forward
+    classBackward: 'backward', // is set if user clicked backward
+    classWrap: 'canvas-animation',
+    controlsTemplate:
         '<div class="controls">' +
-            '<div class="step-backward #STEPBACKWARD#"></div>' +
+            '<div class="backward #BACKWARD#"></div>' +
             '<div class="play #PLAY#"></div>' +
             '<div class="pause #PAUSE#"></div>' +
             '<div class="reset #RESET#"></div>' +
-            '<div class="step-forward #STEPFORWARD#"></div>' +
+            '<div class="forward #FORWARD#"></div>' +
             '<div class="fullscreen #FULLSCREEN#"></div>' +
         '</div>',
-    callback_play: null, // called before first animation step
-    callback_done: null, // called after last animation step
-    callback_wait: null  // called if class_wait was added
+    onPlay: null, // called before first animation step
+    onDone: null, // called after last animation step
+    onWait: null  // called if classWait was added
 });
 ```
 

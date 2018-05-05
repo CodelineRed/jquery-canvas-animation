@@ -1,6 +1,6 @@
 var caConfig = {
     autoplay: false,
-    controls_fa: 5,
+    fontawesomeVersion: 5,
 //    infinity: false,
     steps: [
         {
@@ -18,7 +18,7 @@ var caConfig = {
             addClass: 'ca-4',
         }
     ],
-    callback_done: function() {
+    onDone: function() {
 //        console.log('foo bar');
     }
 };
