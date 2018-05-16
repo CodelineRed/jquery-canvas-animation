@@ -10,6 +10,30 @@ $ npm i jquery-canvas-animation
 
 ## Documentation
 
+HTML/CSS Ratios
+```html
+<div id="canvas" class="canvas-ratio-21by9">
+    <!-- ... -->
+</div>
+
+<div id="canvas" class="canvas-ratio-16by9">
+    <!-- ... -->
+</div>
+
+<div id="canvas" class="canvas-ratio-4by3">
+    <!-- ... -->
+</div>
+
+<div id="canvas" class="canvas-ratio-2by1">
+    <!-- ... -->
+</div>
+
+<div id="canvas" class="canvas-ratio-1by1">
+    <!-- ... -->
+</div>
+```
+
+JavaScript
 ```js
 $('#canvas').canvasAnimation({
     steps: [
