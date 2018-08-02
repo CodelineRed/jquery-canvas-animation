@@ -5,36 +5,25 @@
     padding: 0;
     overflow: hidden;
     
-    *, *:before, *:after {
-        transition: all 0.5s ease;
-        -o-transition: all 0.5s ease;
-        -ms-transition: all 0.5s ease;
-        -webkit-transition: all 0.5s ease;
+    @if $jca-transition == '1' {
+        *, *:before, *:after {
+            transition: $jca-transition-setting;
+            -o-transition: $jca-transition-setting;
+            -ms-transition: $jca-transition-setting;
+            -moz-transition: $jca-transition-setting;
+            -webkit-transition: $jca-transition-setting;
+        }
     }
     
     &:before {
         display: block;
         content: "";
     }
-
-    &.canvas-ratio-21by9::before {
-        padding-top: percentage(9 / 21);
-    }
-
-    &.canvas-ratio-16by9::before {
-        padding-top: percentage(9 / 16);
-    }
-
-    &.canvas-ratio-4by3::before {
-        padding-top: percentage(3 / 4);
-    }
-
-    &.canvas-ratio-2by1::before {
-        padding-top: percentage(1 / 2);
-    }
-
-    &.canvas-ratio-1by1::before {
-        padding-top: percentage(1 / 1);
+    
+    @each $ratio, $value in $jca-ratios {
+        &.canvas-ratio-#{$ratio}::before {
+            padding-top: $value;
+        }
     }
 }
 

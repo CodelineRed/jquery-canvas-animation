@@ -1,17 +1,17 @@
 .controls {
-    padding-top: 25px;
     width: 190px;
     height: 30px;
+    padding: 25px 0 0 0;
     margin: auto;
     
     &> div {
         position: relative;
-        border: 1px solid black;
+        border: $jca-controls-box;
         cursor: pointer;
-        width: 25px;
-        height: 25px;
+        width: $jca-controls-box-width;
+        height: $jca-controls-box-height;
         float: left;
-        margin-right: 5px;
+        margin-right: $jca-controls-box-margin;
         
         &:after,
         &:before {
@@ -31,20 +31,20 @@
         &:after {
             width: 3px;
             height: 17px;
-            background-color: black;
+            background-color: $jca-controls-color;
             left: 25%;
         }
         
         &:before {
             left: 65%;
-            border-right: 10px solid black;
+            border-right: 10px solid $jca-controls-color;
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
         }
     }
     
     .play:before {
-        border-left: 10px solid black;
+        border-left: 10px solid $jca-controls-color;
         border-top: 10px solid transparent;
         border-bottom: 10px solid transparent;
     }
@@ -52,27 +52,27 @@
     .pause:before {
         width: 3px;
         height: 17px;
-        border-left: 3px solid black;
-        border-right: 3px solid black;
+        border-left: 3px solid $jca-controls-color;
+        border-right: 3px solid $jca-controls-color;
     }
     
     .reset:before {
         width: 15px;
         height: 15px;
-        background-color: black;
+        background-color: $jca-controls-color;
     }
     
     .forward {
         &:after {
             width: 3px;
             height: 17px;
-            background-color: black;
+            background-color: $jca-controls-color;
             left: 80%;
         }
         
         &:before {
             left: 40%;
-            border-left: 10px solid black;
+            border-left: 10px solid $jca-controls-color;
             border-top: 10px solid transparent;
             border-bottom: 10px solid transparent;
         }
@@ -112,27 +112,27 @@
         }
         
         &.fa-step-backward:before {
-            content: '\f048';
+            content: $jca-step-backward;
         }
         
         &.fa-play:before {
-            content: '\f04b';
+            content: $jca-play;
         }
         
         &.fa-pause:before {
-            content: '\f04c';
+            content: $jca-pause;
         }
         
         &.fa-stop:before {
-            content: '\f04d';
+            content: $jca-stop;
         }
         
         &.fa-step-forward:before {
-            content: '\f051';
+            content: $jca-step-forward;
         }
         
         &.fa-expand:before {
-            content: '\f065';
+            content: $jca-expand;
         }
     }
 }

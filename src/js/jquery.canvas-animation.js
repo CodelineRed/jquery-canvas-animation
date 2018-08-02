@@ -49,7 +49,7 @@
                 var ns = 'fa';
                 
                 if (parseInt(config.fontawesomeVersion) === 5) {
-//                    ns = 'fas';
+                    ns = 'fas';
                 }
                 
                 config.controlsTemplate = config.controlsTemplate.replace('#BACKWARD#', ns + ' fa-step-backward');
