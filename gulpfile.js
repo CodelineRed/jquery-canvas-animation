@@ -1,5 +1,6 @@
 var gulp        = require('gulp');
 var minifyCss   = require('gulp-clean-css');
+var concat      = require('gulp-concat');
 var rename      = require('gulp-rename');
 var sass        = require('gulp-sass');
 var uglify      = require('gulp-uglify');
@@ -21,7 +22,11 @@ gulp.task('scss', function() {
 
 // concatinate and uglify all js
 gulp.task('js', function() {
-    return gulp.src(sourcePath + 'js/jquery.canvas-animation.js')
+    return gulp.src([
+            sourcePath + 'js/jquery.canvas-animation-editor.js',
+            sourcePath + 'js/jquery.canvas-animation.js'
+        ])
+        .pipe(concat('jquery.canvas-animation.js'))
         .pipe(gulp.dest(distPath + 'js/'))
         .pipe(rename({suffix: '.min'}))
         .pipe(uglify())

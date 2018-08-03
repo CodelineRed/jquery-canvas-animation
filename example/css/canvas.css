@@ -2,7 +2,7 @@ body {
     background-color: grey;
 }
 
-.content {
+.jca-wrap {
     max-width: 1000px;
     margin: auto;
 }
@@ -21,7 +21,7 @@ body {
     #canvas .square.green {
       background-color: green;
       top: 91.2%;
-      right: 0; }
+      left: 95%; }
       #canvas .square.green:after {
         content: '';
         position: absolute;

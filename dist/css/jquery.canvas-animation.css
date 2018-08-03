@@ -1,23 +1,30 @@
-@charset "UTF-8";
-[class*="canvas-ratio-"] {
+[class*="jca-ratio-"] {
   position: relative;
   display: block;
   width: 100%;
   padding: 0;
   overflow: hidden; }
-  [class*="canvas-ratio-"]:before {
+  [class*="jca-ratio-"] *, [class*="jca-ratio-"] *:before, [class*="jca-ratio-"] *:after {
+    transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    -ms-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease; }
+  [class*="jca-ratio-"]:before {
     display: block;
     content: ""; }
-  [class*="canvas-ratio-"].canvas-ratio-21by9::before {
+  [class*="jca-ratio-"].jca-ratio-21by9::before {
     padding-top: 42.85714%; }
-  [class*="canvas-ratio-"].canvas-ratio-16by9::before {
+  [class*="jca-ratio-"].jca-ratio-16by9::before {
     padding-top: 56.25%; }
-  [class*="canvas-ratio-"].canvas-ratio-4by3::before {
+  [class*="jca-ratio-"].jca-ratio-4by3::before {
     padding-top: 75%; }
-  [class*="canvas-ratio-"].canvas-ratio-2by1::before {
+  [class*="jca-ratio-"].jca-ratio-2by1::before {
     padding-top: 50%; }
-  [class*="canvas-ratio-"].canvas-ratio-1by1::before {
+  [class*="jca-ratio-"].jca-ratio-1by1::before {
     padding-top: 100%; }
+  [class*="jca-ratio-"] .jca-active-element {
+    /*border: 5px dashed black;*/ }
 
 :fullscreen [class*="canvas-ratio-"],
 :-ms-fullscreen [class*="canvas-ratio-"],
@@ -26,98 +33,170 @@
   width: auto !important;
   max-width: none !important; }
 
-.controls {
-  width: 190px;
-  height: 30px;
+.jca-controls {
+  width: 100%;
   padding: 25px 0 0 0;
-  margin: auto; }
-  .controls > div {
+  text-align: center; }
+  .jca-controls > div {
     position: relative;
-    border: 1px solid black;
     cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    border: 1px solid black;
     width: 25px;
     height: 25px;
-    float: left;
-    margin-right: 5px; }
-    .controls > div:after, .controls > div:before {
+    margin-right: 5px;
+    background: transparent;
+    border-radius: 0; }
+    .jca-controls > div:after, .jca-controls > div:before {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       content: ''; }
-    .controls > div:last-child {
+    .jca-controls > div:last-child {
       margin-right: 0; }
-  .controls .backward:after {
+  .jca-controls .jca-backward:after {
     width: 3px;
     height: 17px;
     background-color: black;
     left: 25%; }
-  .controls .backward:before {
+  .jca-controls .jca-backward:before {
     left: 65%;
     border-right: 10px solid black;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent; }
-  .controls .play:before {
+  .jca-controls .jca-play:before {
     border-left: 10px solid black;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent; }
-  .controls .pause:before {
+  .jca-controls .jca-pause:before {
     width: 3px;
     height: 17px;
     border-left: 3px solid black;
     border-right: 3px solid black; }
-  .controls .reset:before {
+  .jca-controls .jca-reset:before {
     width: 15px;
     height: 15px;
     background-color: black; }
-  .controls .forward:after {
+  .jca-controls .jca-forward:after {
     width: 3px;
     height: 17px;
     background-color: black;
     left: 80%; }
-  .controls .forward:before {
+  .jca-controls .jca-forward:before {
     left: 40%;
     border-left: 10px solid black;
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent; }
-  .controls .fullscreen:before {
-    content: 'FS'; }
-  .controls > .fas.play:before,
-  .controls > .fa.play:before {
-    border: 0 none; }
-  .controls > .fas.pause:before,
-  .controls > .fa.pause:before {
-    width: auto;
-    height: auto;
-    border: 0 none; }
-  .controls > .fas.reset:before,
-  .controls > .fa.reset:before {
-    width: auto;
-    height: auto; }
-  .controls > .fas.backward:after, .controls > .fas.forward:after,
-  .controls > .fa.backward:after,
-  .controls > .fa.forward:after {
-    background-color: transparent; }
-  .controls > .fas.backward:before, .controls > .fas.forward:before,
-  .controls > .fa.backward:before,
-  .controls > .fa.forward:before {
-    left: 50%;
-    border: 0 none; }
-  .controls > .fas.fa-step-backward:before,
-  .controls > .fa.fa-step-backward:before {
-    content: ""; }
-  .controls > .fas.fa-play:before,
-  .controls > .fa.fa-play:before {
-    content: ""; }
-  .controls > .fas.fa-pause:before,
-  .controls > .fa.fa-pause:before {
-    content: ""; }
-  .controls > .fas.fa-stop:before,
-  .controls > .fa.fa-stop:before {
-    content: ""; }
-  .controls > .fas.fa-step-forward:before,
-  .controls > .fa.fa-step-forward:before {
-    content: ""; }
-  .controls > .fas.fa-expand:before,
-  .controls > .fa.fa-expand:before {
-    content: ""; }
+  .jca-controls .jca-expand:before {
+    content: 'FS';
+    font-size: 1rem;
+    color: black; }
+
+.jca-fontawesome .jca-controls > div > .svg-inline--fa,
+.jca-fontawesome .jca-controls > div > .fas,
+.jca-fontawesome .jca-controls > div > .fa {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  color: black; }
+
+.jca-fontawesome .jca-controls > div.jca-play:before {
+  border: 0 none; }
+
+.jca-fontawesome .jca-controls > div.jca-pause:before {
+  width: auto;
+  height: auto;
+  border: 0 none; }
+
+.jca-fontawesome .jca-controls > div.jca-reset:before {
+  width: auto;
+  height: auto; }
+
+.jca-fontawesome .jca-controls > div.jca-backward:after, .jca-fontawesome .jca-controls > div.jca-forward:after {
+  background-color: transparent; }
+
+.jca-fontawesome .jca-controls > div.jca-backward:before, .jca-fontawesome .jca-controls > div.jca-forward:before {
+  left: 50%;
+  border: 0 none; }
+
+.jca-fontawesome .jca-controls > div.jca-expand:before {
+  content: ''; }
+
+.jca-editor {
+  display: flex;
+  flex-direction: row; }
+  .jca-editor *, .jca-editor ::after, .jca-editor ::before {
+    box-sizing: border-box; }
+  .jca-editor .jca-col {
+    flex: 33% 0 0;
+    max-width: 33%;
+    padding: 0 15px; }
+  .jca-editor .jca-cord-dimension {
+    padding: 30px 15px; }
+    .jca-editor .jca-cord-dimension [type="number"] {
+      width: 40px;
+      position: absolute; }
+      .jca-editor .jca-cord-dimension [type="number"][name="jca_top"] {
+        top: -10px;
+        left: 50%;
+        transform: translateX(-50%); }
+      .jca-editor .jca-cord-dimension [type="number"][name="jca_left"] {
+        top: 50%;
+        left: -20px;
+        transform: translateY(-50%); }
+      .jca-editor .jca-cord-dimension [type="number"][name="jca_width"] {
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%); }
+      .jca-editor .jca-cord-dimension [type="number"][name="jca_height"] {
+        top: 50%;
+        right: -20px;
+        transform: translateY(-50%); }
+    .jca-editor .jca-cord-dimension .jca-label {
+      position: absolute;
+      height: 0;
+      width: 40px; }
+      .jca-editor .jca-cord-dimension .jca-label:before {
+        font-size: 1rem; }
+      .jca-editor .jca-cord-dimension .jca-label.jca-top {
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%); }
+        .jca-editor .jca-cord-dimension .jca-label.jca-top:before {
+          content: 'top'; }
+      .jca-editor .jca-cord-dimension .jca-label.jca-left {
+        left: -50px;
+        top: 50%;
+        height: 20px;
+        transform: translateY(-50%); }
+        .jca-editor .jca-cord-dimension .jca-label.jca-left:before {
+          content: 'left'; }
+      .jca-editor .jca-cord-dimension .jca-label.jca-width {
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%); }
+        .jca-editor .jca-cord-dimension .jca-label.jca-width:before {
+          content: 'width'; }
+      .jca-editor .jca-cord-dimension .jca-label.jca-height {
+        right: -65px;
+        top: 50%;
+        height: 20px;
+        transform: translateY(-50%); }
+        .jca-editor .jca-cord-dimension .jca-label.jca-height:before {
+          content: 'height'; }
+    .jca-editor .jca-cord-dimension .jca-box {
+      position: relative;
+      width: 75px;
+      height: 75px;
+      border: 1px solid black;
+      margin: auto; }
+      .jca-editor .jca-cord-dimension .jca-box:before {
+        content: '%';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%); }

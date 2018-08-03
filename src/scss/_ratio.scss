@@ -1,11 +1,11 @@
-[class*="canvas-ratio-"] {
+[class*="jca-ratio-"] {
     position: relative;
     display: block;
     width: 100%;
     padding: 0;
     overflow: hidden;
     
-    @if $jca-transition == '1' {
+    @if $jca-transition == 1 {
         *, *:before, *:after {
             transition: $jca-transition-setting;
             -o-transition: $jca-transition-setting;
@@ -21,9 +21,13 @@
     }
     
     @each $ratio, $value in $jca-ratios {
-        &.canvas-ratio-#{$ratio}::before {
+        &.jca-ratio-#{$ratio}::before {
             padding-top: $value;
         }
+    }
+    
+    .jca-active-element {
+        /*border: 5px dashed black;*/
     }
 }
 

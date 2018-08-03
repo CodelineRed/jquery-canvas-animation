@@ -1,21 +1,13 @@
 // controls
-$jca-controls-color: black !default;
-$jca-controls-box: 1px solid $jca-controls-color !default;
-$jca-controls-box-width: 25px !default;
-$jca-controls-box-height: 25px !default;
-$jca-controls-box-margin: 5px !default;
-$jca-controls-width: 190px !default;
-$jca-controls-height: 30px !default;
+$jca-controls-size: 1 !default; // size multiplicator
+$jca-controls-color: black !default; // font color
+$jca-controls-icon-color: $jca-controls-color !default; // icon/font color
 $jca-controls-padding: 25px 0 0 0 !default;
-$jca-controls-margin: auto !default;
 
-// font awesome icons
-$jca-step-backward: '\f048' !default;
-$jca-play: '\f04b' !default;
-$jca-pause: '\f04c' !default;
-$jca-stop: '\f04d' !default;
-$jca-step-forward: '\f051' !default;
-$jca-expand: '\f065' !default;
+$jca-controls-box-border: 1px solid $jca-controls-color !default;
+$jca-controls-box-border-radius: 0 !default;
+$jca-controls-box-background: transparent !default;
+$jca-controls-box-margin: 5px !default;
 
 // transition
 $jca-transition: 1 !default; // 1 = active

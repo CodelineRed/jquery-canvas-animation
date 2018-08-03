@@ -1,4 +1,19 @@
 (function($) {
+    $.fn.canvasAnimationEditor = function(config) {
+        var thisCanvas = this;
+        $('*', thisCanvas).click(function() {
+            thisCanvas.hide();
+            $('*', thisCanvas).removeClass('jca-active-element');
+            $('[name="jca_top"]').val(parseFloat($(this).css('top')));
+            $('[name="jca_left"]').val(parseFloat($(this).css('left')));
+            $('[name="jca_width"]').val(parseFloat($(this).css('width')));
+            $('[name="jca_height"]').val(parseFloat($(this).css('height')));
+            $(this).addClass('jca-active-element');
+            thisCanvas.show();
+        });
+    };
+})(jQuery);
+(function($) {
     $.fn.canvasAnimation = function(config) {
         var thisCanvas = this;
 
@@ -9,27 +24,28 @@
             infinity: true, // if true: plays animation infinity
             autoplay: true, // if true: plays animation instantly
             controls: true, // if true: adds controls to canvas
+            editor: true, // if true: show editor on page
             fontawesomeVersion: null, // fontawesome version (4 or 5)
-            controlsWrapper: '.controls', // class of the controls wrapper
-            backwardButton: '.backward', // class of step backward button
-            playButton: '.play', // class of play button
-            pauseButton: '.pause', // class of pause button
-            resetButton: '.reset', // class of reset button
-            forwardButton: '.forward', // class of step forward button
-            fullscreenButton: '.fullscreen', // class of fullscreen button
-            classDone: 'done', // is set if the animation is done
-            classWait: 'wait', // is set if autoplay : false and animation is never played or user clicked on reset button
-            classForward: 'forward', // is set if user clicked forward
-            classBackward: 'backward', // is set if user clicked backward
-            classWrap: 'canvas-animation',
+            controlsWrapper: '.jca-controls', // class of the controls wrapper
+            backwardButton: '.jca-backward', // class of step backward button
+            playButton: '.jca-play', // class of play button
+            pauseButton: '.jca-pause', // class of pause button
+            resetButton: '.jca-reset', // class of reset button
+            forwardButton: '.jca-forward', // class of step forward button
+            expandButton: '.jca-expand', // class of expand button
+            classDone: 'jca-done', // is set if the animation is done
+            classWait: 'jca-wait', // is set if autoplay : false and animation is never played or user clicked on reset button
+            classForward: 'jca-forward', // is set if user clicked forward
+            classBackward: 'jca-backward', // is set if user clicked backward
+            classWrap: 'jca-wrap',
             controlsTemplate:
-                '<div class="controls">' +
-                    '<div class="backward #BACKWARD#"></div>' +
-                    '<div class="play #PLAY#"></div>' +
-                    '<div class="pause #PAUSE#"></div>' +
-                    '<div class="reset #RESET#"></div>' +
-                    '<div class="forward #FORWARD#"></div>' +
-                    '<div class="fullscreen #FULLSCREEN#"></div>' +
+                '<div class="jca-controls">' +
+                    '<div class="jca-backward"></div>' +
+                    '<div class="jca-play"></div>' +
+                    '<div class="jca-pause"></div>' +
+                    '<div class="jca-reset"></div>' +
+                    '<div class="jca-forward"></div>' +
+                    '<div class="jca-expand"></div>' +
                 '</div>',
             onPlay: null, // called before first animation step
             onDone: null, // called after last animation step
@@ -39,6 +55,7 @@
         var animationTimeouts = [];
         var currentAnimationStep = -1;
         var lastStepTimeout;
+        var controlsTemplate = $(config.controlsTemplate);
         
         thisCanvas.wrap('<div class="' + config.classWrap + '"></div>');
         
@@ -49,29 +66,30 @@
                 var ns = 'fa';
                 
                 if (parseInt(config.fontawesomeVersion) === 5) {
-//                    ns = 'fas';
+                    ns = 'fas';
                 }
                 
-                config.controlsTemplate = config.controlsTemplate.replace('#BACKWARD#', ns + ' fa-step-backward');
-                config.controlsTemplate = config.controlsTemplate.replace('#PLAY#', ns + ' fa-play');
-                config.controlsTemplate = config.controlsTemplate.replace('#PAUSE#', ns + ' fa-pause');
-                config.controlsTemplate = config.controlsTemplate.replace('#RESET#', ns + ' fa-stop');
-                config.controlsTemplate = config.controlsTemplate.replace('#FORWARD#', ns + ' fa-step-forward');
-                config.controlsTemplate = config.controlsTemplate.replace('#FULLSCREEN#', ns + ' fa-expand');
+                $('html').addClass('jca-fontawesome');
+                controlsTemplate.find(config.backwardButton).append('<i class="' + ns + ' fa-step-backward"></i>');
+                controlsTemplate.find(config.playButton).append('<i class="' + ns + ' fa-play"></i>');
+                controlsTemplate.find(config.pauseButton).append('<i class="' + ns + ' fa-pause"></i>');
+                controlsTemplate.find(config.resetButton).append('<i class="' + ns + ' fa-stop"></i>');
+                controlsTemplate.find(config.forwardButton).append('<i class="' + ns + ' fa-step-forward"></i>');
+                controlsTemplate.find(config.expandButton).append('<i class="' + ns + ' fa-expand"></i>');
                 break;
                 
             default:
-                config.controlsTemplate = config.controlsTemplate.replace('#BACKWARD#', '');
-                config.controlsTemplate = config.controlsTemplate.replace('#PLAY#', '');
-                config.controlsTemplate = config.controlsTemplate.replace('#PAUSE#', '');
-                config.controlsTemplate = config.controlsTemplate.replace('#RESET#', '');
-                config.controlsTemplate = config.controlsTemplate.replace('#FORWARD#', '');
-                config.controlsTemplate = config.controlsTemplate.replace('#FULLSCREEN#', '');
+                break;
         }
         
         // if controls enabled
         if (config.controls) {
-            thisCanvas.closest('.' + config.classWrap).append(config.controlsTemplate);
+            thisCanvas.closest('.' + config.classWrap).append(controlsTemplate.clone());
+        }
+        
+        // if editor enabled
+        if (config.editor) {
+            thisCanvas.canvasAnimationEditor();
         }
         
         /**
@@ -123,7 +141,7 @@
                 reset();
             }
             
-            if (thisCanvas.hasClass('forward')) {
+            if (thisCanvas.hasClass(config.forwardButton.substring(1))) {
                 currentAnimationStep--;
             }
             
@@ -224,15 +242,17 @@
             thisCanvas.addClass(config.classWait);
             callCallback(config.onWait);
         }
+        
+        if (!config.editor) {
+            // click on canvas
+            thisCanvas.click(function() {
+                config.infinity = infinity;
 
-        // click on canvas
-        thisCanvas.click(function() {
-            config.infinity = infinity;
-            
-            if (thisCanvas.hasClass(config.classDone) || thisCanvas.hasClass(config.classWait)) {
-                play();
-            }
-        });
+                if (thisCanvas.hasClass(config.classDone) || thisCanvas.hasClass(config.classWait)) {
+                    play();
+                }
+            });
+        }
         
         // click on step backward
         thisCanvas.next(config.controlsWrapper).find(config.backwardButton).click(function() {
@@ -317,7 +337,7 @@
         });
 
         // click on fullscreen
-        thisCanvas.next(config.controlsWrapper).find(config.fullscreenButton).click(function() {
+        thisCanvas.next(config.controlsWrapper).find(config.expandButton).click(function() {
 //            enterFullscreen(document.documentElement);
             enterFullscreen(thisCanvas[0]);
 //            enterFullscreen(thisCanvas.closest('.' + config.classWrap)[0]);
