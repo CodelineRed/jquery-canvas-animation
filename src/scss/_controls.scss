@@ -81,9 +81,20 @@
     }
     
     .jca-expand:before {
-        content: 'FS';
-        font-size: 1rem * $jca-controls-size;
-        color: $jca-controls-icon-color;
+        border: 2px * $jca-controls-size solid $jca-controls-icon-color;
+        width: 15px * $jca-controls-size;
+        height: 10px * $jca-controls-size;
+    }
+    
+    .jca-edit:before {
+        width: 5px * $jca-controls-size;
+        height: 3px * $jca-controls-size;
+        left: 40%;
+        border-bottom: 15px * $jca-controls-size solid $jca-controls-icon-color;
+        border-top: 5px * $jca-controls-size solid $jca-controls-icon-color;
+        transform: rotate(45deg);
+        top: 5%;
+        border-radius: 10px * $jca-controls-size;
     }
 }
 
@@ -102,35 +113,19 @@
             }
             
             // reset default settings
-            &.jca-play:before {
+            &.jca-forward:before,
+            &.jca-play:before,
+            &.jca-pause:before,
+            &.jca-reset:before,
+            &.jca-backward:before,
+            &.jca-expand:before,
+            &.jca-edit:before {
                 border: 0 none;
             }
 
-            &.jca-pause:before {
-                width: auto;
-                height: auto;
-                border: 0 none;
-            }
-
-            &.jca-reset:before {
-                width: auto;
-                height: auto;
-            }
-
-            &.jca-backward,
-            &.jca-forward {
-                &:after {
-                    background-color: transparent;
-                }
-
-                &:before {
-                    left: 50%;
-                    border: 0 none;
-                }
-            }
-            
-            &.jca-expand:before {
-                content: '';
+            &.jca-backward:after,
+            &.jca-forward:after {
+                background-color: transparent;
             }
         }
     }

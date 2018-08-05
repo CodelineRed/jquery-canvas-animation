@@ -1,17 +1,19 @@
-.controls {
-    padding-top: 25px;
-    width: 190px;
-    height: 30px;
-    margin: auto;
+.jca-controls {
+    width: 100%;
+    padding: @jca-controls-padding;
+    text-align: center;
     
-    &> div {
+    & > div {
         position: relative;
-        border: 1px solid black;
         cursor: pointer;
-        width: 25px;
-        height: 25px;
-        float: left;
-        margin-right: 5px;
+        display: inline-block;
+        overflow: hidden;
+        border: @jca-controls-box-border;
+        width: 25px * @jca-controls-size;
+        height: 25px * @jca-controls-size;
+        margin-right: @jca-controls-box-margin;
+        background: @jca-controls-box-background;
+        border-radius: @jca-controls-box-border-radius;
         
         &:after,
         &:before {
@@ -27,112 +29,104 @@
         }
     }
     
-    .backward {
+    .jca-backward {
         &:after {
-            width: 3px;
-            height: 17px;
-            background-color: black;
+            width: 3px * @jca-controls-size;
+            height: 17px * @jca-controls-size;
+            background-color: @jca-controls-icon-color;
             left: 25%;
         }
         
         &:before {
             left: 65%;
-            border-right: 10px solid black;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
+            border-right: 10px * @jca-controls-size solid @jca-controls-icon-color;
+            border-top: 10px * @jca-controls-size solid transparent;
+            border-bottom: 10px * @jca-controls-size solid transparent;
         }
     }
     
-    .play:before {
-        border-left: 10px solid black;
-        border-top: 10px solid transparent;
-        border-bottom: 10px solid transparent;
+    .jca-play:before {
+        border-left: 10px * @jca-controls-size solid @jca-controls-icon-color;
+        border-top: 10px * @jca-controls-size solid transparent;
+        border-bottom: 10px * @jca-controls-size solid transparent;
     }
     
-    .pause:before {
-        width: 3px;
-        height: 17px;
-        border-left: 3px solid black;
-        border-right: 3px solid black;
+    .jca-pause:before {
+        width: 3px * @jca-controls-size;
+        height: 17px * @jca-controls-size;
+        border-left: 3px * @jca-controls-size solid @jca-controls-icon-color;
+        border-right: 3px * @jca-controls-size solid @jca-controls-icon-color;
     }
     
-    .reset:before {
-        width: 15px;
-        height: 15px;
-        background-color: black;
+    .jca-reset:before {
+        width: 15px * @jca-controls-size;
+        height: 15px * @jca-controls-size;
+        background-color: @jca-controls-icon-color;
     }
     
-    .forward {
+    .jca-forward {
         &:after {
-            width: 3px;
-            height: 17px;
-            background-color: black;
+            width: 3px * @jca-controls-size;
+            height: 17px * @jca-controls-size;
+            background-color: @jca-controls-icon-color;
             left: 80%;
         }
         
         &:before {
             left: 40%;
-            border-left: 10px solid black;
-            border-top: 10px solid transparent;
-            border-bottom: 10px solid transparent;
+            border-left: 10px * @jca-controls-size solid @jca-controls-icon-color;
+            border-top: 10px * @jca-controls-size solid transparent;
+            border-bottom: 10px * @jca-controls-size solid transparent;
         }
     }
     
-    .fullscreen:before {
-        content: 'FS';
+    .jca-expand:before {
+        border: 2px * @jca-controls-size solid @jca-controls-icon-color;
+        width: 15px * @jca-controls-size;
+        height: 10px * @jca-controls-size;
     }
     
-    &> .fas,
-    &> .fa {
-        &.play:before {
-            border: 0 none;
-        }
-    
-        &.pause:before {
-            width: auto;
-            height: auto;
-            border: 0 none;
-        }
-    
-        &.reset:before {
-            width: auto;
-            height: auto;
-        }
-    
-        &.backward,
-        &.forward {
-            &:after {
-                background-color: transparent;
-            }
+    .jca-edit:before {
+        width: 5px * @jca-controls-size;
+        height: 3px * @jca-controls-size;
+        left: 40%;
+        border-bottom: 15px * @jca-controls-size solid @jca-controls-icon-color;
+        border-top: 5px * @jca-controls-size solid @jca-controls-icon-color;
+        transform: rotate(45deg);
+        top: 5%;
+        border-radius: 10px * @jca-controls-size;
+    }
+}
 
-            &:before {
+.jca-fontawesome {
+    .jca-controls {
+        & > div {
+            & > .svg-inline--fa,
+            & > .fas,
+            & > .fa {
+                position: absolute;
                 left: 50%;
+                top: 50%;
+                transform: translate(-50%,-50%);
+                font-size: 1rem * @jca-controls-size;
+                color: @jca-controls-icon-color;
+            }
+            
+            // reset default settings
+            &.jca-forward:before,
+            &.jca-play:before,
+            &.jca-pause:before,
+            &.jca-reset:before,
+            &.jca-backward:before,
+            &.jca-expand:before,
+            &.jca-edit:before {
                 border: 0 none;
             }
-        }
-        
-        &.fa-step-backward:before {
-            content: '\f048';
-        }
-        
-        &.fa-play:before {
-            content: '\f04b';
-        }
-        
-        &.fa-pause:before {
-            content: '\f04c';
-        }
-        
-        &.fa-stop:before {
-            content: '\f04d';
-        }
-        
-        &.fa-step-forward:before {
-            content: '\f051';
-        }
-        
-        &.fa-expand:before {
-            content: '\f065';
+
+            &.jca-backward:after,
+            &.jca-forward:after {
+                background-color: transparent;
+            }
         }
     }
 }

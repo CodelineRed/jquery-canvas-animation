@@ -1,19 +1,4 @@
 (function($) {
-    $.fn.canvasAnimationEditor = function(config) {
-        var thisCanvas = this;
-        $('*', thisCanvas).click(function() {
-            thisCanvas.hide();
-            $('*', thisCanvas).removeClass('jca-active-element');
-            $('[name="jca_top"]').val(parseFloat($(this).css('top')));
-            $('[name="jca_left"]').val(parseFloat($(this).css('left')));
-            $('[name="jca_width"]').val(parseFloat($(this).css('width')));
-            $('[name="jca_height"]').val(parseFloat($(this).css('height')));
-            $(this).addClass('jca-active-element');
-            thisCanvas.show();
-        });
-    };
-})(jQuery);
-(function($) {
     $.fn.canvasAnimation = function(config) {
         var thisCanvas = this;
 
@@ -24,7 +9,9 @@
             infinity: true, // if true: plays animation infinity
             autoplay: true, // if true: plays animation instantly
             controls: true, // if true: adds controls to canvas
-            editor: true, // if true: show editor on page
+            editorConfig: {
+                enable : false // if true: show editor on page
+            },
             fontawesomeVersion: null, // fontawesome version (4 or 5)
             controlsWrapper: '.jca-controls', // class of the controls wrapper
             backwardButton: '.jca-backward', // class of step backward button
@@ -33,6 +20,7 @@
             resetButton: '.jca-reset', // class of reset button
             forwardButton: '.jca-forward', // class of step forward button
             expandButton: '.jca-expand', // class of expand button
+            editButton: '.jca-edit', // class of edit button
             classDone: 'jca-done', // is set if the animation is done
             classWait: 'jca-wait', // is set if autoplay : false and animation is never played or user clicked on reset button
             classForward: 'jca-forward', // is set if user clicked forward
@@ -46,6 +34,7 @@
                     '<div class="jca-reset"></div>' +
                     '<div class="jca-forward"></div>' +
                     '<div class="jca-expand"></div>' +
+                    '<div class="jca-edit"></div>' +
                 '</div>',
             onPlay: null, // called before first animation step
             onDone: null, // called after last animation step
@@ -76,6 +65,7 @@
                 controlsTemplate.find(config.resetButton).append('<i class="' + ns + ' fa-stop"></i>');
                 controlsTemplate.find(config.forwardButton).append('<i class="' + ns + ' fa-step-forward"></i>');
                 controlsTemplate.find(config.expandButton).append('<i class="' + ns + ' fa-expand"></i>');
+                controlsTemplate.find(config.editButton).append('<i class="' + ns + ' fa-edit"></i>');
                 break;
                 
             default:
@@ -85,11 +75,6 @@
         // if controls enabled
         if (config.controls) {
             thisCanvas.closest('.' + config.classWrap).append(controlsTemplate.clone());
-        }
-        
-        // if editor enabled
-        if (config.editor) {
-            thisCanvas.canvasAnimationEditor();
         }
         
         /**
@@ -243,7 +228,7 @@
             callCallback(config.onWait);
         }
         
-        if (!config.editor) {
+        if (!config.editorConfig.enable) {
             // click on canvas
             thisCanvas.click(function() {
                 config.infinity = infinity;
@@ -342,5 +327,19 @@
             enterFullscreen(thisCanvas[0]);
 //            enterFullscreen(thisCanvas.closest('.' + config.classWrap)[0]);
         });
+        
+        // if editor enabled
+        if (config.editorConfig.enable) {
+            thisCanvas.canvasAnimationEditor(config.editorConfig);
+            
+            // toggle edit bar
+            thisCanvas.next(config.controlsWrapper).find(config.editButton).click(function() {
+                if ($('.jca-editor').is(':visible')) {
+                    $('.jca-editor').hide();
+                } else {
+                    $('.jca-editor').show();
+                }
+            });
+        }
     };
 })(jQuery);

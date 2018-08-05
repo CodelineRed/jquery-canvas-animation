@@ -2,6 +2,9 @@ var caConfig = {
     autoplay: false,
     fontawesomeVersion: 5,
 //    infinity: false,
+    editorConfig: {
+        enable : true
+    },
     steps: [
         {
             addClass: 'ca-1'
