@@ -12,6 +12,7 @@ $ npm i jquery-canvas-animation
 
 HTML/CSS Ratios
 The Canvas have to be an id attribute.
+[Example HTML](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/index.html)
 ```html
 <div id="canvas" class="canvas-ratio-21by9">
     <!-- ... -->
@@ -35,6 +36,7 @@ The Canvas have to be an id attribute.
 ```
 
 JavaScript ([jquery.canvas-animation.js](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/src/js/jquery.canvas-animation.js))
+[Example JavaScript](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/js/scripts.js)
 ```js
 $('#canvas').canvasAnimation({
     steps: [
@@ -47,7 +49,7 @@ $('#canvas').canvasAnimation({
     ],
     timeout: 0, // 0 = starts immediately the first step (milliseconds)
     resetDuration: 500, // time it takes to reset all animations (milliseconds)
-    infinity: true, // if true: plays animation infinity
+    infinite: true, // if true: plays animation infinite
     autoplay: true, // if true: plays animation instantly
     controls: true, // if true: adds controls to canvas
     editorConfig: {
@@ -137,9 +139,5 @@ $('#canvas').canvasAnimationEditor({
     '</div>'
 });
 ```
-
-## Upcoming Features
-* Processing of config.decimal
-* Draggable Items
 
 **This software is in development. Could have bugs.**

@@ -4,7 +4,9 @@
   width: 100%;
   padding: 0;
   overflow: hidden; }
-  [class*="jca-ratio-"] *, [class*="jca-ratio-"] *:before, [class*="jca-ratio-"] *:after {
+  [class*="jca-ratio-"] .ui-draggable {
+    cursor: move; }
+  [class*="jca-ratio-"] *:not(.ui-draggable-dragging), [class*="jca-ratio-"] *:before, [class*="jca-ratio-"] *:after {
     transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -ms-transition: all 0.5s ease;

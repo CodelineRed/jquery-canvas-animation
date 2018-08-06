@@ -1,8 +1,8 @@
 var caConfig = {
     autoplay: false,
     fontawesomeVersion: 5,
-//    infinity: false,
-    editorConfig: {
+//    infinite: false,
+    editor: {
         enable : true
     },
     steps: [

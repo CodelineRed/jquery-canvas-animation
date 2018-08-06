@@ -7,3 +7,12 @@
         padding-top: @ratio;
     }
 }
+
+.jca-transitions(@transitions) when (@transitions = 1) {
+    *:not(.ui-draggable-dragging), *:before, *:after {
+        transition: all 0.5s ease;
+        -o-transition: all 0.5s ease;
+        -ms-transition: all 0.5s ease;
+        -webkit-transition: all 0.5s ease;
+    }
+}

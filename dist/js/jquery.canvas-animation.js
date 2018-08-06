@@ -6,10 +6,10 @@
             steps: [],
             timeout: 0, // 0 = starts immediately the first step (milliseconds)
             resetDuration: 500, // time it takes to reset all animations (milliseconds)
-            infinity: true, // if true: plays animation infinity
+            infinite: true, // if true: plays animation infinite
             autoplay: true, // if true: plays animation instantly
             controls: true, // if true: adds controls to canvas
-            editorConfig: {
+            editor: {
                 enable : false // if true: show editor on page
             },
             fontawesomeVersion: null, // fontawesome version (4 or 5)
@@ -40,11 +40,12 @@
             onDone: null, // called after last animation step
             onWait: null  // called if classWait was added
         }, config );
-        var infinity = config.infinity;
+        var infinite = config.infinite;
         var animationTimeouts = [];
         var currentAnimationStep = -1;
         var lastStepTimeout;
         var controlsTemplate = $(config.controlsTemplate);
+        config.editor.enable = config.editor.enable && typeof $.fn.canvasAnimationEditor === 'function';
         
         thisCanvas.wrap('<div class="' + config.classWrap + '"></div>');
         
@@ -75,7 +76,7 @@
         // if controls enabled
         if (config.controls) {
             // if editor is disabled
-            if (!config.editorConfig.enable) {
+            if (!config.editor.enable) {
                 controlsTemplate.find(config.editButton).remove();
             }
             thisCanvas.closest('.' + config.classWrap).append(controlsTemplate.clone());
@@ -152,7 +153,7 @@
                         thisCanvas.removeClass(value.removeClass);
                         
                         if (typeof value.pause === 'boolean' && value.pause === true) {
-                            config.infinity = false;
+                            config.infinite = false;
                             stop(false);
                         }
 
@@ -180,7 +181,7 @@
             lastStepTimeout = setTimeout(function() {
                 thisCanvas.addClass(config.classDone);
                 if (!thisCanvas.hasClass(config.classWait)) {
-                    if (config.infinity) {
+                    if (config.infinite) {
                         play();
                     } else {
                         callCallback(config.onDone);
@@ -232,10 +233,10 @@
             callCallback(config.onWait);
         }
         
-        if (!config.editorConfig.enable) {
+        if (!config.editor.enable) {
             // click on canvas
             thisCanvas.click(function() {
-                config.infinity = infinity;
+                config.infinite = infinite;
 
                 if (thisCanvas.hasClass(config.classDone) || thisCanvas.hasClass(config.classWait)) {
                     play();
@@ -275,7 +276,7 @@
         
         // click on play
         thisCanvas.next(config.controlsWrapper).find(config.playButton).click(function() {
-            config.infinity = infinity;
+            config.infinite = infinite;
             
             if (thisCanvas.hasClass(config.classDone) || thisCanvas.hasClass(config.classWait)) {
                 play();
@@ -284,13 +285,13 @@
         
         // click on pause
         thisCanvas.next(config.controlsWrapper).find(config.pauseButton).click(function() {
-            config.infinity = false;
+            config.infinite = false;
             stop(false);
         });
         
         // click on reset
         thisCanvas.next(config.controlsWrapper).find(config.resetButton).click(function() {
-            config.infinity = false;
+            config.infinite = false;
             stop(true);
             reset();
             thisCanvas.removeClass(config.classDone);
@@ -333,8 +334,8 @@
         });
         
         // if editor enabled
-        if (config.editorConfig.enable) {
-            thisCanvas.canvasAnimationEditor(config.editorConfig);
+        if (config.editor.enable) {
+            thisCanvas.canvasAnimationEditor(config.editor);
             
             // toggle edit bar
             thisCanvas.next(config.controlsWrapper).find(config.editButton).click(function() {

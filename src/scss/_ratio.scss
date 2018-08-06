@@ -5,8 +5,12 @@
     padding: 0;
     overflow: hidden;
     
+    .ui-draggable {
+        cursor: move;
+    }
+    
     @if $jca-transition == 1 {
-        *, *:before, *:after {
+        *:not(.ui-draggable-dragging), *:before, *:after {
             transition: $jca-transition-setting;
             -o-transition: $jca-transition-setting;
             -ms-transition: $jca-transition-setting;

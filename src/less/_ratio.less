@@ -5,12 +5,11 @@
     padding: 0;
     overflow: hidden;
     
-    *, *:before, *:after {
-        transition: all 0.5s ease;
-        -o-transition: all 0.5s ease;
-        -ms-transition: all 0.5s ease;
-        -webkit-transition: all 0.5s ease;
+    .ui-draggable {
+        cursor: move;
     }
+    
+    .jca-transitions(@jca-transition);
     
     &:before {
         display: block;
