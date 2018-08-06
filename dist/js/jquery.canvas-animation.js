@@ -74,6 +74,10 @@
         
         // if controls enabled
         if (config.controls) {
+            // if editor is disabled
+            if (!config.editorConfig.enable) {
+                controlsTemplate.find(config.editButton).remove();
+            }
             thisCanvas.closest('.' + config.classWrap).append(controlsTemplate.clone());
         }
         

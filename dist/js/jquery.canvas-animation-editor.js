@@ -9,7 +9,9 @@
         var itemTopCache = 0;
         var itemLeftCache = 0;
         var config = $.extend({
-            enable: false,
+            enable: false, // if true: show editor on page
+            decimal: 2, // accuracy of numbers
+            draggableItems: true, // jQuery UI Draggable is required for this feature
             labels: {
                 top: 'top',
                 left: 'left',
@@ -106,6 +108,18 @@
             
             thisCanvas.show();
             $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
+            
+            if (config.draggableItems && typeof $.fn.draggable === 'function' 
+                    && !item.hasClass('ui-draggable') && (typeof item.attr('id') === 'undefined' 
+                    || (typeof item.attr('id') !== 'undefined' 
+                    && item.attr('id') !== thisCanvas.attr('id')))) {
+                item.draggable({
+                    stop: function(event, ui) {
+                        $('#jca-css').html(getCss(item));
+                        $('#jca-html').html(getHtml(item));
+                    }
+                });
+            }
         });
         
         $('.jca-cord-dimension input').change(function() {
