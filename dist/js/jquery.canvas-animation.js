@@ -1,7 +1,12 @@
 (function($) {
     $.fn.canvasAnimation = function(config) {
+        if (this.attr('id') === 'undefined') {
+            return;
+        }
         var thisCanvas = this;
-
+        var animationTimeouts = [];
+        var currentAnimationStep = -1;
+        var lastStepTimeout;
         var config = $.extend({
             steps: [],
             timeout: 0, // 0 = starts immediately the first step (milliseconds)
@@ -41,9 +46,6 @@
             onWait: null  // called if classWait was added
         }, config );
         var infinite = config.infinite;
-        var animationTimeouts = [];
-        var currentAnimationStep = -1;
-        var lastStepTimeout;
         var controlsTemplate = $(config.controlsTemplate);
         config.editor.enable = config.editor.enable && typeof $.fn.canvasAnimationEditor === 'function';
         

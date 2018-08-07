@@ -29,7 +29,9 @@
                 itemHeight: 'Item height in px',
                 itemTop: 'Item offset top in px',
                 itemLeft: 'Item offset left in px',
-                confirmAppendPrepend: 'OK = append item / Cancel = prepend item'
+                confirmAppendPrepend: 'OK = append item / Cancel = prepend item',
+                confirmRemove: 'Are you sure to remove?',
+                alertCanvasId: 'Canvas needs attribute "id".'
             },
             template: '<div class="jca-editor">' +
                 '<div class="jca-container">' +
@@ -52,13 +54,18 @@
                     '</div>' +
                     '<div class="jca-col">' +
                         '<input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
-                        '<input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value="Select CSS"/><br/>' +
-                        '<br/>' +
+                        '<input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/><br/>' +
                         '<input type="button" name="jca_remove_item" value=""/><br/>' +
                     '</div>' +
                 '</div>' +
             '</div>'
         }, config );
+        
+        if (thisCanvas.attr('id') === 'undefined') {
+            alert(config.labels.alertCanvasId);
+            return;
+        }
+        
         var editorTemplate = $(config.template);
         editorTemplate.find('.jca-label.jca-top').attr('data-label', config.labels.top);
         editorTemplate.find('.jca-label.jca-left').attr('data-label', config.labels.left);
@@ -71,14 +78,11 @@
         editorTemplate.find('[name="jca_remove_item"]').val(config.labels.removeItem);
         $('body').prepend(editorTemplate);
         
-        if (config.decimal > 0) {
-            editorTemplate.find('[name="jca_top"]').attr('step', 1 / Math.pow(10, config.decimal));
-            editorTemplate.find('[name="jca_left"]').attr('step', 1 / Math.pow(10, config.decimal));
-            editorTemplate.find('[name="jca_width"]').attr('step', 1 / Math.pow(10, config.decimal));
-            editorTemplate.find('[name="jca_height"]').attr('step', 1 / Math.pow(10, config.decimal));
-        } else {
-            config.decimal = 2;
-        }
+        if (config.decimal < 1) config.decimal = 2;
+        editorTemplate.find('[name="jca_top"]').attr('step', 1 / Math.pow(10, config.decimal));
+        editorTemplate.find('[name="jca_left"]').attr('step', 1 / Math.pow(10, config.decimal));
+        editorTemplate.find('[name="jca_width"]').attr('step', 1 / Math.pow(10, config.decimal));
+        editorTemplate.find('[name="jca_height"]').attr('step', 1 / Math.pow(10, config.decimal));
         
         thisCanvas.attr('data-hash', getUniqueHash());
         $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(thisCanvas));
@@ -155,7 +159,7 @@
         });
         
         $('[name="jca_remove_item"]').click(function() {
-            if ($('.jca-active-element').length && confirm('Are you sure to remove ' + getIdClass($('.jca-active-element')) + '?')) {
+            if ($('.jca-active-element').length && confirm(config.labels.confirmRemove + ' ' + getIdClass($('.jca-active-element')))) {
                 $('.jca-active-element').remove();
                 thisCanvas.click();
             }
@@ -314,7 +318,7 @@
                 result = getSelectorBreadcrumb(item.parent());
             }
             
-            return result + '<a href="' + item.data('hash') + '">' + getIdClass(item) + '</a> > ';
+            return result + '<a href="' + item.data('hash') + '">' + getIdClass(item) + '</a> <span class="jca-pointer">></span> ';
         }
         
         /**
@@ -327,8 +331,8 @@
             do {
                 hash = getRandomColor();
             }
-            while (hash in uniqueHashes); 
-            uniqueHashes[hash] = 1;
+            while (uniqueHashes.indexOf(hash) > -1); 
+            uniqueHashes.push(hash);
             
             return hash;
         }
@@ -336,7 +340,7 @@
         /**
          * Sets item draggable
          * 
-         * @param {String} item
+         * @param {object} item
          * @returns {void}
          */
         function setItemDraggable(item) {
@@ -383,12 +387,12 @@
         /**
          * Selects text in given element
          * 
-         * @param {String} element
+         * @param {String} item id from item
          * @returns {void}
          */
-        function selectText(element) {
+        function selectText(item) {
             var doc = document
-                , text = doc.getElementById(element)
+                , text = doc.getElementById(item)
                 , range, selection
             ;    
             if (doc.body.createTextRange) {

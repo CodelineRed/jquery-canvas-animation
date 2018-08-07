@@ -116,6 +116,10 @@
             color: grey;
             text-decoration: underline;
         }
+        
+        span:last-child {
+            display: none;
+        }
     }
     
     #jca-html {

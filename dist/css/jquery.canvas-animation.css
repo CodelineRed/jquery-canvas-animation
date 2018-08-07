@@ -198,6 +198,8 @@
   .jca-editor .jca-selector-breadcrumb a {
     color: grey;
     text-decoration: underline; }
+  .jca-editor .jca-selector-breadcrumb span:last-child {
+    display: none; }
   .jca-editor #jca-html {
     overflow: hidden;
     white-space: nowrap; }

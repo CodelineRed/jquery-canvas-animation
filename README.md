@@ -12,7 +12,6 @@ $ npm i jquery-canvas-animation
 
 HTML/CSS Ratios
 The Canvas have to be an id attribute.
-[Example HTML](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/index.html)
 ```html
 <div id="canvas" class="canvas-ratio-21by9">
     <!-- ... -->
@@ -36,7 +35,6 @@ The Canvas have to be an id attribute.
 ```
 
 JavaScript ([jquery.canvas-animation.js](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/src/js/jquery.canvas-animation.js))
-[Example JavaScript](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/js/scripts.js)
 ```js
 $('#canvas').canvasAnimation({
     steps: [
@@ -131,13 +129,18 @@ $('#canvas').canvasAnimationEditor({
             '</div>' +
             '<div class="jca-col">' +
                 '<input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
-                '<input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value="Select CSS"/><br/>' +
-                '<br/>' +
+                '<input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/><br/>' +
                 '<input type="button" name="jca_remove_item" value=""/><br/>' +
             '</div>' +
         '</div>' +
     '</div>'
 });
 ```
+
+## Examples
+* [HTML](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/index.html)
+* [CSS Canvas](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/css/canvas.css)
+* [CSS Animation](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/css/animation.css)
+* [JavaScript](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/js/scripts.js)
 
 **This software is in development. Could have bugs.**
