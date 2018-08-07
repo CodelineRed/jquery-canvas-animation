@@ -6,9 +6,11 @@
     width: 100%;
     left: 0;
     z-index: 5;
+    display: none;
     
     *, ::after, ::before {
         box-sizing: border-box;
+        line-height: 1.25;
     }
     
     & ~ *:last-child {
@@ -34,6 +36,7 @@
         [type="number"] {
             width: 55px;
             position: absolute;
+            font-size: 12px;
             
             &[name="jca_top"] {
                 top: -10px;
@@ -66,7 +69,7 @@
             
             &:before {
                 content: attr(data-label);
-                font-size: 1rem;
+                font-size: 17px;
             }
             
             &.jca-top {
@@ -125,5 +128,16 @@
     #jca-html {
         overflow: hidden;
         white-space: nowrap;
+    }
+    
+    .jca-new,
+    .jca-select,
+    .jca-remove {
+        font-size: 17px;
+    }
+    
+    [type="button"] {
+        font-size: 12px;
+        cursor: pointer;
     }
 }

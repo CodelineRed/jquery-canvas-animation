@@ -17,11 +17,15 @@
                 left: 'left',
                 width: 'width',
                 height: 'height',
-                newItemBlank: 'New Item (Blank)',
-                newItemExt: 'New Item (Extended)',
-                selectCss: 'Select CSS',
-                selectHtml: 'Select HTML',
-                removeItem: 'Remove Item',
+                newItem: 'New: ',
+                newItemBlank: 'Blank',
+                newItemExt: 'Extended',
+                select: 'Select: ',
+                selectCss: 'CSS',
+                selectHtml: 'HTML',
+                remove: 'Remove: ',
+                removeItem: 'Item',
+                removeStyle: 'Style',
                 className: 'CSS class name',
                 parentWidth: 'Parent width in px',
                 parentHeight: 'Parent height in px',
@@ -30,7 +34,8 @@
                 itemTop: 'Item offset top in px',
                 itemLeft: 'Item offset left in px',
                 confirmAppendPrepend: 'OK = append item / Cancel = prepend item',
-                confirmRemove: 'Are you sure to remove?',
+                confirmRemoveItem: 'Are you sure to remove item?',
+                confirmRemoveStyle: 'Are you sure to remove style?',
                 alertCanvasId: 'Canvas needs attribute "id".'
             },
             template: '<div class="jca-editor">' +
@@ -53,9 +58,9 @@
                         '<div id="jca-css"></div>' +
                     '</div>' +
                     '<div class="jca-col">' +
-                        '<input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
-                        '<input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/><br/>' +
-                        '<input type="button" name="jca_remove_item" value=""/><br/>' +
+                        '<span class="jca-new"></span><input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
+                        '<span class="jca-select"></span><input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/>' +
+                        '<span class="jca-remove"></span><input type="button" name="jca_remove_item" value=""/> <input type="button" name="jca_remove_style" value=""/><br/>' +
                     '</div>' +
                 '</div>' +
             '</div>'
@@ -76,6 +81,10 @@
         editorTemplate.find('[name="jca_css"]').val(config.labels.selectCss);
         editorTemplate.find('[name="jca_html"]').val(config.labels.selectHtml);
         editorTemplate.find('[name="jca_remove_item"]').val(config.labels.removeItem);
+        editorTemplate.find('[name="jca_remove_style"]').val(config.labels.removeStyle);
+        editorTemplate.find('.jca-new').text(config.labels.newItem);
+        editorTemplate.find('.jca-select').text(config.labels.select);
+        editorTemplate.find('.jca-remove').text(config.labels.remove);
         $('body').prepend(editorTemplate);
         
         if (config.decimal < 1) config.decimal = 2;
@@ -89,6 +98,7 @@
         
         $('*', thisCanvas).each(function() {
             $(this).attr('data-hash', getUniqueHash());
+            $(this).attr('data-class', $(this).attr('class'));
             setItemDraggable($(this));
         });
         
@@ -123,10 +133,9 @@
             thisCanvas.show();
             $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
             
-            if (config.draggableItems && typeof $.fn.draggable === 'function' 
-                    && !item.hasClass('ui-draggable') && (typeof item.attr('id') === 'undefined' 
-                    || (typeof item.attr('id') !== 'undefined' 
-                    && item.attr('id') !== thisCanvas.attr('id')))) {
+            if (typeof item.attr('id') === 'undefined' 
+                || (typeof item.attr('id') !== 'undefined' 
+                && item.attr('id') !== thisCanvas.attr('id'))) {
                 setItemDraggable(item);
             }
         });
@@ -159,9 +168,16 @@
         });
         
         $('[name="jca_remove_item"]').click(function() {
-            if ($('.jca-active-element').length && confirm(config.labels.confirmRemove + ' ' + getIdClass($('.jca-active-element')))) {
+            if ($('.jca-active-element').length && confirm(config.labels.confirmRemoveItem + ' ' + getIdClass($('.jca-active-element')))) {
+                var parent = $('.jca-active-element').parent();
                 $('.jca-active-element').remove();
-                thisCanvas.click();
+                parent.click();
+            }
+        });
+        
+        $('[name="jca_remove_style"]').click(function() {
+            if ($('.jca-active-element').length && confirm(config.labels.confirmRemoveStyle + ' ' + getIdClass($('.jca-active-element')))) {
+                $('.jca-active-element').attr('style', '');
             }
         });
         
@@ -189,7 +205,7 @@
          * @returns {void}
          */
         function addItem(className, top, left, width, height) {
-            var item = $('<div class="' + className + '"></div>');
+            var item = $('<div class="' + className + '" data-class="' + className + '"></div>');
             item.css('position', 'absolute');
             item.css('top', top);
             item.css('left', left);
@@ -202,7 +218,7 @@
             
             if (className.length) {
                 if ($('.jca-active-element').length) {
-                    var parent = $('.jca-active-element').parent();
+                    var parent = $('.jca-active-element');
                 } else {
                     var parent = thisCanvas;
                 }
@@ -225,21 +241,12 @@
          * @returns {String}
          */
         function getCss(item) {
-            item.toggleClass('jca-active-element');
-            var draggableClass = item.hasClass('ui-draggable');
-            item.removeClass('ui-draggable');
-            item.removeClass('ui-draggable-handle');
-            item.removeClass('ui-draggable-dragging');
-            
             var sourceCode = getIdClass(item) + ' {<br/>';
             sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;top: ' + item.css('top') + ';<br>';
             sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;left: ' + item.css('left') + ';<br>';
             sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;width: ' + item.css('width') + ';<br>';
             sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;height: ' + item.css('height') + ';<br>';
             sourceCode += '}';
-            
-            item.toggleClass('jca-active-element');
-            if (draggableClass) item.toggleClass('ui-draggable');
             return sourceCode;
         }
         
@@ -250,14 +257,7 @@
          * @returns {String}
          */
         function getHtml(item) {
-            var item = item.clone();
-            item.removeAttr('data-hash');
-            item.removeAttr('style');
-            item.removeClass('jca-active-element');
-            item.removeClass('ui-draggable');
-            item.removeClass('ui-draggable-handle');
-            item.removeClass('ui-draggable-dragging');
-            return htmlEscape(item[0].outerHTML);
+            return htmlEscape('<div class="' + item.data('class') + '"></div>');
         }
         
         /**
@@ -269,11 +269,8 @@
         function getIdClass(item) {
             var item = item.clone();
             var itemId = item.attr('id');
-            var itemClass = item.attr('class');
+            var itemClass = item.data('class');
             var itemIdClass = '';
-            item.removeClass('jca-active-element');
-            item.removeClass('ui-draggable');
-            itemClass = item.attr('class');
             
             // if has id attribute
             if (typeof itemId !== 'undefined' && itemId.length) {
@@ -344,21 +341,26 @@
          * @returns {void}
          */
         function setItemDraggable(item) {
-            item.draggable({
-                stop: function(event, ui) {
-                    item.css('top', (parseFloat(item.css('top')) * 100 / item.parent().height()).toFixed(config.decimal) + '%');
-                    item.css('left', (parseFloat(item.css('left')) * 100 / item.parent().width()).toFixed(config.decimal) + '%');
-                    $('[name="jca_top"]').val((parseFloat(item.css('top')) * 100 / item.parent().height()).toFixed(config.decimal));
-                    $('[name="jca_left"]').val((parseFloat(item.css('left')) * 100 / item.parent().width()).toFixed(config.decimal));
-                    thisCanvas.hide();
-                    $('[name="jca_width"]').val(parseFloat(item.css('width')));
-                    $('[name="jca_height"]').val(parseFloat(item.css('height')));
-                    $('#jca-css').html(getCss(item));
-                    $('#jca-html').html(getHtml(item));
-                    thisCanvas.show();
-                    $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
-                }
-            });
+            if (config.draggableItems && typeof $.fn.draggable === 'function' 
+                    && !item.hasClass('ui-draggable')) {
+                item.draggable({
+                    stop: function(event, ui) {
+                        $('*', thisCanvas).removeClass('jca-active-element');
+                        item.css('top', (parseFloat(item.css('top')) * 100 / item.parent().height()).toFixed(config.decimal) + '%');
+                        item.css('left', (parseFloat(item.css('left')) * 100 / item.parent().width()).toFixed(config.decimal) + '%');
+                        $('[name="jca_top"]').val((parseFloat(item.css('top')) * 100 / item.parent().height()).toFixed(config.decimal));
+                        $('[name="jca_left"]').val((parseFloat(item.css('left')) * 100 / item.parent().width()).toFixed(config.decimal));
+                        thisCanvas.hide();
+                        $('[name="jca_width"]').val(parseFloat(item.css('width')));
+                        $('[name="jca_height"]').val(parseFloat(item.css('height')));
+                        $('#jca-css').html(getCss(item));
+                        $('#jca-html').html(getHtml(item));
+                        thisCanvas.show();
+                        $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
+                        if (!$(ui.helper).hasClass('jca-active-element')) $(ui.helper).addClass('jca-active-element');
+                    }
+                });
+            }
         }
 
         /**

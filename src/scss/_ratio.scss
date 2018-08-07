@@ -10,12 +10,20 @@
     }
     
     @if $jca-transition == 1 {
-        *:not(.ui-draggable-dragging), *:before, *:after {
+        *, *:before, *:after {
             transition: $jca-transition-setting;
             -o-transition: $jca-transition-setting;
             -ms-transition: $jca-transition-setting;
             -moz-transition: $jca-transition-setting;
             -webkit-transition: $jca-transition-setting;
+        }
+        
+        .ui-draggable-dragging {
+            transition: none !important;
+            -o-transition: none !important;
+            -ms-transition: none !important;
+            -moz-transition: none !important;
+            -webkit-transition: none !important;
         }
     }
     

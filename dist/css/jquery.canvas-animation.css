@@ -6,12 +6,18 @@
   overflow: hidden; }
   [class*="jca-ratio-"] .ui-draggable {
     cursor: move; }
-  [class*="jca-ratio-"] *:not(.ui-draggable-dragging), [class*="jca-ratio-"] *:before, [class*="jca-ratio-"] *:after {
+  [class*="jca-ratio-"] *, [class*="jca-ratio-"] *:before, [class*="jca-ratio-"] *:after {
     transition: all 0.5s ease;
     -o-transition: all 0.5s ease;
     -ms-transition: all 0.5s ease;
     -moz-transition: all 0.5s ease;
     -webkit-transition: all 0.5s ease; }
+  [class*="jca-ratio-"] .ui-draggable-dragging {
+    transition: none !important;
+    -o-transition: none !important;
+    -ms-transition: none !important;
+    -moz-transition: none !important;
+    -webkit-transition: none !important; }
   [class*="jca-ratio-"]:before {
     display: block;
     content: ""; }
@@ -42,6 +48,8 @@
     cursor: pointer;
     display: inline-block;
     overflow: hidden;
+    box-sizing: border-box;
+    line-height: 1;
     border: 1px solid black;
     width: 25px;
     height: 25px;
@@ -53,7 +61,8 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      content: ''; }
+      content: '';
+      box-sizing: border-box; }
     .jca-controls > div:last-child {
       margin-right: 0; }
   .jca-controls .jca-backward:after {
@@ -71,7 +80,7 @@
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent; }
   .jca-controls .jca-pause:before {
-    width: 3px;
+    width: 10px;
     height: 17px;
     border-left: 3px solid black;
     border-right: 3px solid black; }
@@ -91,11 +100,11 @@
     border-bottom: 10px solid transparent; }
   .jca-controls .jca-expand:before {
     border: 2px solid black;
-    width: 15px;
-    height: 10px; }
+    width: 17px;
+    height: 13px; }
   .jca-controls .jca-edit:before {
     width: 5px;
-    height: 3px;
+    height: 22px;
     left: 40%;
     border-bottom: 15px solid black;
     border-top: 5px solid black;
@@ -113,10 +122,8 @@
   font-size: 1rem;
   color: black; }
 
-.jca-fontawesome .jca-controls > div.jca-forward:before, .jca-fontawesome .jca-controls > div.jca-play:before, .jca-fontawesome .jca-controls > div.jca-pause:before, .jca-fontawesome .jca-controls > div.jca-reset:before, .jca-fontawesome .jca-controls > div.jca-backward:before, .jca-fontawesome .jca-controls > div.jca-expand:before, .jca-fontawesome .jca-controls > div.jca-edit:before {
-  border: 0 none; }
-
-.jca-fontawesome .jca-controls > div.jca-backward:after, .jca-fontawesome .jca-controls > div.jca-forward:after {
+.jca-fontawesome .jca-controls > div.jca-forward:before, .jca-fontawesome .jca-controls > div.jca-play:before, .jca-fontawesome .jca-controls > div.jca-pause:before, .jca-fontawesome .jca-controls > div.jca-reset:before, .jca-fontawesome .jca-controls > div.jca-backward:before, .jca-fontawesome .jca-controls > div.jca-expand:before, .jca-fontawesome .jca-controls > div.jca-edit:before, .jca-fontawesome .jca-controls > div.jca-backward:after, .jca-fontawesome .jca-controls > div.jca-forward:after {
+  border: 0 none;
   background-color: transparent; }
 
 .jca-editor {
@@ -126,9 +133,11 @@
   bottom: 0;
   width: 100%;
   left: 0;
-  z-index: 5; }
+  z-index: 5;
+  display: none; }
   .jca-editor *, .jca-editor ::after, .jca-editor ::before {
-    box-sizing: border-box; }
+    box-sizing: border-box;
+    line-height: 1.25; }
   .jca-editor ~ *:last-child {
     margin-bottom: 175px; }
   .jca-editor .jca-container {
@@ -144,7 +153,8 @@
     padding: 30px 15px; }
     .jca-editor .jca-cord-dimension [type="number"] {
       width: 55px;
-      position: absolute; }
+      position: absolute;
+      font-size: 12px; }
       .jca-editor .jca-cord-dimension [type="number"][name="jca_top"] {
         top: -10px;
         left: 50%;
@@ -166,7 +176,7 @@
       text-align: center; }
       .jca-editor .jca-cord-dimension .jca-label:before {
         content: attr(data-label);
-        font-size: 1rem; }
+        font-size: 17px; }
       .jca-editor .jca-cord-dimension .jca-label.jca-top {
         top: -30px;
         left: 50%;
@@ -203,3 +213,10 @@
   .jca-editor #jca-html {
     overflow: hidden;
     white-space: nowrap; }
+  .jca-editor .jca-new,
+  .jca-editor .jca-select,
+  .jca-editor .jca-remove {
+    font-size: 17px; }
+  .jca-editor [type="button"] {
+    font-size: 12px;
+    cursor: pointer; }

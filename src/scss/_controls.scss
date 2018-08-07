@@ -8,6 +8,8 @@
         cursor: pointer;
         display: inline-block;
         overflow: hidden;
+        box-sizing: border-box;
+        line-height: 1;
         border: $jca-controls-box-border;
         width: 25px * $jca-controls-size;
         height: 25px * $jca-controls-size;
@@ -22,6 +24,7 @@
             left: 50%;
             transform: translate(-50%,-50%);
             content: '';
+            box-sizing: border-box;
         }
         
         &:last-child {
@@ -52,7 +55,7 @@
     }
     
     .jca-pause:before {
-        width: 3px * $jca-controls-size;
+        width: 10px * $jca-controls-size;
         height: 17px * $jca-controls-size;
         border-left: 3px * $jca-controls-size solid $jca-controls-icon-color;
         border-right: 3px * $jca-controls-size solid $jca-controls-icon-color;
@@ -82,13 +85,13 @@
     
     .jca-expand:before {
         border: 2px * $jca-controls-size solid $jca-controls-icon-color;
-        width: 15px * $jca-controls-size;
-        height: 10px * $jca-controls-size;
+        width: 17px * $jca-controls-size;
+        height: 13px * $jca-controls-size;
     }
     
     .jca-edit:before {
         width: 5px * $jca-controls-size;
-        height: 3px * $jca-controls-size;
+        height: 22px * $jca-controls-size;
         left: 40%;
         border-bottom: 15px * $jca-controls-size solid $jca-controls-icon-color;
         border-top: 5px * $jca-controls-size solid $jca-controls-icon-color;
@@ -119,12 +122,10 @@
             &.jca-reset:before,
             &.jca-backward:before,
             &.jca-expand:before,
-            &.jca-edit:before {
-                border: 0 none;
-            }
-
+            &.jca-edit:before,
             &.jca-backward:after,
             &.jca-forward:after {
+                border: 0 none;
                 background-color: transparent;
             }
         }

@@ -13,23 +13,23 @@ $ npm i jquery-canvas-animation
 HTML/CSS Ratios
 The Canvas have to be an id attribute.
 ```html
-<div id="canvas" class="canvas-ratio-21by9">
+<div id="canvas" class="jca-ratio-21by9">
     <!-- ... -->
 </div>
 
-<div id="canvas" class="canvas-ratio-16by9">
+<div id="canvas" class="jca-ratio-16by9">
     <!-- ... -->
 </div>
 
-<div id="canvas" class="canvas-ratio-4by3">
+<div id="canvas" class="jca-ratio-4by3">
     <!-- ... -->
 </div>
 
-<div id="canvas" class="canvas-ratio-2by1">
+<div id="canvas" class="jca-ratio-2by1">
     <!-- ... -->
 </div>
 
-<div id="canvas" class="canvas-ratio-1by1">
+<div id="canvas" class="jca-ratio-1by1">
     <!-- ... -->
 </div>
 ```
@@ -50,7 +50,7 @@ $('#canvas').canvasAnimation({
     infinite: true, // if true: plays animation infinite
     autoplay: true, // if true: plays animation instantly
     controls: true, // if true: adds controls to canvas
-    editorConfig: {
+    editor: {
         enable : false // if true: show editor on page
     },
     fontawesomeVersion: null, // fontawesome version (4 or 5)
@@ -94,11 +94,15 @@ $('#canvas').canvasAnimationEditor({
         left: 'left',
         width: 'width',
         height: 'height',
-        newItemBlank: 'New Item (Blank)',
-        newItemExt: 'New Item (Extended)',
-        selectCss: 'Select CSS',
-        selectHtml: 'Select HTML',
-        removeItem: 'Remove Item',
+        newItem: 'New: ',
+        newItemBlank: 'Blank',
+        newItemExt: 'Extended',
+        select: 'Select: ',
+        selectCss: 'CSS',
+        selectHtml: 'HTML',
+        remove: 'Remove: ',
+        removeItem: 'Item',
+        removeStyle: 'Style',
         className: 'CSS class name',
         parentWidth: 'Parent width in px',
         parentHeight: 'Parent height in px',
@@ -106,7 +110,10 @@ $('#canvas').canvasAnimationEditor({
         itemHeight: 'Item height in px',
         itemTop: 'Item offset top in px',
         itemLeft: 'Item offset left in px',
-        confirmAppendPrepend: 'OK = append item / Cancel = prepend item'
+        confirmAppendPrepend: 'OK = append item / Cancel = prepend item',
+        confirmRemoveItem: 'Are you sure to remove item?',
+        confirmRemoveStyle: 'Are you sure to remove style?',
+        alertCanvasId: 'Canvas needs attribute "id".'
     },
     template: '<div class="jca-editor">' +
         '<div class="jca-container">' +
@@ -128,9 +135,9 @@ $('#canvas').canvasAnimationEditor({
                 '<div id="jca-css"></div>' +
             '</div>' +
             '<div class="jca-col">' +
-                '<input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
-                '<input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/><br/>' +
-                '<input type="button" name="jca_remove_item" value=""/><br/>' +
+                '<span class="jca-new"></span><input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
+                '<span class="jca-select"></span><input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/>' +
+                '<span class="jca-remove"></span><input type="button" name="jca_remove_item" value=""/> <input type="button" name="jca_remove_style" value=""/><br/>' +
             '</div>' +
         '</div>' +
     '</div>'
