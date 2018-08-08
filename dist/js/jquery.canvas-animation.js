@@ -17,7 +17,8 @@
             editor: {
                 enable : false // if true: show editor on page
             },
-            fontawesomeVersion: null, // fontawesome version (4 or 5)
+            faVersion: null, // fontawesome version (4 or 5)
+            faPrefix: 'fas', // fontawesome prefix: v4 = fa; v5 = fas, far or fal
             controlsWrapper: '.jca-controls', // class of the controls wrapper
             backwardButton: '.jca-backward', // class of step backward button
             playButton: '.jca-play', // class of play button
@@ -51,24 +52,17 @@
         
         thisCanvas.wrap('<div class="' + config.classWrap + '"></div>');
         
-        switch (parseInt(config.fontawesomeVersion)) {
+        switch (parseInt(config.faVersion)) {
             case 4:
             case 5:
-                // if is fontawesome version 4 or 5
-                var ns = 'fa';
-                
-                if (parseInt(config.fontawesomeVersion) === 5) {
-                    ns = 'fas';
-                }
-                
                 $('html').addClass('jca-fontawesome');
-                controlsTemplate.find(config.backwardButton).append('<i class="' + ns + ' fa-step-backward"></i>');
-                controlsTemplate.find(config.playButton).append('<i class="' + ns + ' fa-play"></i>');
-                controlsTemplate.find(config.pauseButton).append('<i class="' + ns + ' fa-pause"></i>');
-                controlsTemplate.find(config.resetButton).append('<i class="' + ns + ' fa-stop"></i>');
-                controlsTemplate.find(config.forwardButton).append('<i class="' + ns + ' fa-step-forward"></i>');
-                controlsTemplate.find(config.expandButton).append('<i class="' + ns + ' fa-expand"></i>');
-                controlsTemplate.find(config.editButton).append('<i class="' + ns + ' fa-edit"></i>');
+                controlsTemplate.find(config.backwardButton).append('<i class="' + config.faPrefix + ' fa-step-backward"></i>');
+                controlsTemplate.find(config.playButton).append('<i class="' + config.faPrefix + ' fa-play"></i>');
+                controlsTemplate.find(config.pauseButton).append('<i class="' + config.faPrefix + ' fa-pause"></i>');
+                controlsTemplate.find(config.resetButton).append('<i class="' + config.faPrefix + ' fa-stop"></i>');
+                controlsTemplate.find(config.forwardButton).append('<i class="' + config.faPrefix + ' fa-step-forward"></i>');
+                controlsTemplate.find(config.expandButton).append('<i class="' + config.faPrefix + ' fa-expand"></i>');
+                controlsTemplate.find(config.editButton).append('<i class="' + config.faPrefix + ' fa-edit"></i>');
                 break;
                 
             default:

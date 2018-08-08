@@ -52,6 +52,7 @@ new
 | Old                             | New                               |
 | ------------------------------- | --------------------------------- |
 | infinity: true                  | infinite: true                    |
+| fontawesomeVersion: null        | faVersion: null                   |
 | controlsWrapper: '.controls'    | controlsWrapper: '.jca-controls'  |
 | backwardButton: '.backward'     | backwardButton: '.jca-backward'   |
 | playButton: '.play'             | playButton: '.jca-play'           |

@@ -114,6 +114,8 @@
 
 .jca-fontawesome .jca-controls > div > .svg-inline--fa,
 .jca-fontawesome .jca-controls > div > .fas,
+.jca-fontawesome .jca-controls > div > .far,
+.jca-fontawesome .jca-controls > div > .fal,
 .jca-fontawesome .jca-controls > div > .fa {
   position: absolute;
   left: 50%;

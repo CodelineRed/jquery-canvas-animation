@@ -1,6 +1,6 @@
 var caConfig = {
     autoplay: false,
-    fontawesomeVersion: 5,
+    faVersion: 5,
 //    infinite: false,
     editor: {
         enable : true
