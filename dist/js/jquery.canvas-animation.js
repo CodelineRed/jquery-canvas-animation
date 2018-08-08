@@ -133,7 +133,7 @@
                 reset();
             }
             
-            if (thisCanvas.hasClass(config.forwardButton.substring(1))) {
+            if (thisCanvas.hasClass(config.classForward)) {
                 currentAnimationStep--;
             }
             

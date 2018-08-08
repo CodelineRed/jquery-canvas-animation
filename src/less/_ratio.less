@@ -9,7 +9,15 @@
         cursor: move;
     }
     
-    .jca-transitions(@jca-transition);
+    .jca-transitions(@jca-transition-enable);
+    
+    .ui-draggable-dragging {
+        transition: none !important;
+        -o-transition: none !important;
+        -ms-transition: none !important;
+        -moz-transition: none !important;
+        -webkit-transition: none !important;
+    }
     
     &:before {
         display: block;

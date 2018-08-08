@@ -7,13 +7,13 @@
 @jca-controls-box-border: 1px solid @jca-controls-color;
 @jca-controls-box-border-radius: 0;
 @jca-controls-box-background: transparent;
-@jca-controls-box-margin: 5px;
+@jca-controls-box-margin: 0 5px 0 0;
 
 // transition
-@jca-transition: 1; // 1 = active
-@jca-transition-setting: all 0.5s ease;
+@jca-transition-enable: 1; // 1 = enable
+@jca-transition: all 0.5s ease;
 
 // available ratios
 @jca-ratio-names: ~'21by9', ~'16by9', ~'4by3', ~'2by1', ~'1by1';
-@jca-ratio-values : percentage(9 / 21), percentage(9 / 16), percentage(3 / 4), percentage(1 / 2), percentage(1 / 1);
+@jca-ratio-values: percentage(9 / 21), percentage(9 / 16), percentage(3 / 4), percentage(1 / 2), percentage(1 / 1);
 @jca-ratio-length: length(@jca-ratio-names);

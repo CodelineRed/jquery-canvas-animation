@@ -8,6 +8,27 @@
 $ npm i jquery-canvas-animation
 ```
 
+## What's new in version 2
+
+### Editor
+With JCA 2 comes a new written editor to your application.
+To enable this feature you have to `editor: {enable: true}` in your canvas configuration and add `jquery.canvas-animation-editor.js` or replace `jquery.canvas-animation.js` with `jquery.canvas-animation.bundle.js` in your application.
+
+### Draggable Items (Editor)
+Draggable items is by default enabled. It works only with Editor and [jQuery UI Draggable](https://jqueryui.com/draggable/).
+
+### Fontawesome 5
+It is now possible to use FA5 with [Web Fonts & CSS](https://fontawesome.com/how-to-use/on-the-web/setup/getting-started?using=web-fonts-with-css) or [SVG & JS](https://fontawesome.com/how-to-use/on-the-web/setup/getting-started?using=svg-with-js).
+
+### CSS Namespace
+All html classes and ids starts with `jca-`.
+
+### Bundle JS
+The new file called `jquery.canvas-animation.bundle.js` includes `jquery.canvas-animation.min.js` and `jquery.canvas-animation-editor.min.js`
+
+### SCSS and LESS variables
+Now you can configure your css output in [SCSS](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/src/scss/_variables.scss) and [LESS](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/src/less/_variables.less).
+
 ## Documentation
 
 HTML/CSS Ratios
@@ -51,7 +72,7 @@ $('#canvas').canvasAnimation({
     autoplay: true, // if true: plays animation instantly
     controls: true, // if true: adds controls to canvas
     editor: {
-        enable : false // if true: show editor on page
+        enable: false // if true: show editor on page
     },
     fontawesomeVersion: null, // fontawesome version (4 or 5)
     controlsWrapper: '.jca-controls', // class of the controls wrapper

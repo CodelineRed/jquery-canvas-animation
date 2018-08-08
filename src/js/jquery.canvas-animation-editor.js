@@ -71,6 +71,7 @@
             return;
         }
         
+        $('html').addClass('jca-editor-enable');
         var editorTemplate = $(config.template);
         editorTemplate.find('.jca-label.jca-top').attr('data-label', config.labels.top);
         editorTemplate.find('.jca-label.jca-left').attr('data-label', config.labels.left);

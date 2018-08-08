@@ -9,22 +9,22 @@
         cursor: move;
     }
     
-    @if $jca-transition == 1 {
+    @if $jca-transition-enable == 1 {
         *, *:before, *:after {
-            transition: $jca-transition-setting;
-            -o-transition: $jca-transition-setting;
-            -ms-transition: $jca-transition-setting;
-            -moz-transition: $jca-transition-setting;
-            -webkit-transition: $jca-transition-setting;
+            transition: $jca-transition;
+            -o-transition: $jca-transition;
+            -ms-transition: $jca-transition;
+            -moz-transition: $jca-transition;
+            -webkit-transition: $jca-transition;
         }
-        
-        .ui-draggable-dragging {
-            transition: none !important;
-            -o-transition: none !important;
-            -ms-transition: none !important;
-            -moz-transition: none !important;
-            -webkit-transition: none !important;
-        }
+    }
+    
+    .ui-draggable-dragging {
+        transition: none !important;
+        -o-transition: none !important;
+        -ms-transition: none !important;
+        -moz-transition: none !important;
+        -webkit-transition: none !important;
     }
     
     &:before {

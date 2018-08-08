@@ -8,19 +8,11 @@
     }
 }
 
-.jca-transitions(@transitions) when (@transitions = 1) {
+.jca-transitions(@transition-enable) when (@transition-enable = 1) {
     *, *:before, *:after {
-        transition: all 0.5s ease;
-        -o-transition: all 0.5s ease;
-        -ms-transition: all 0.5s ease;
-        -webkit-transition: all 0.5s ease;
-    }
-        
-    .ui-draggable-dragging {
-        transition: none !important;
-        -o-transition: none !important;
-        -ms-transition: none !important;
-        -moz-transition: none !important;
-        -webkit-transition: none !important;
+        transition: @jca-transition;
+        -o-transition: @jca-transition;
+        -ms-transition: @jca-transition;
+        -webkit-transition: @jca-transition;
     }
 }

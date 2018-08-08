@@ -53,7 +53,7 @@
     border: 1px solid black;
     width: 25px;
     height: 25px;
-    margin-right: 5px;
+    margin: 0 5px 0 0;
     background: transparent;
     border-radius: 0; }
     .jca-controls > div:after, .jca-controls > div:before {
@@ -138,8 +138,6 @@
   .jca-editor *, .jca-editor ::after, .jca-editor ::before {
     box-sizing: border-box;
     line-height: 1.25; }
-  .jca-editor ~ *:last-child {
-    margin-bottom: 175px; }
   .jca-editor .jca-container {
     display: flex;
     flex-direction: row;
@@ -220,3 +218,6 @@
   .jca-editor [type="button"] {
     font-size: 12px;
     cursor: pointer; }
+
+.jca-editor-enable body {
+  margin-bottom: 175px; }

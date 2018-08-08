@@ -7,11 +7,11 @@ $jca-controls-padding: 25px 0 0 0 !default;
 $jca-controls-box-border: 1px solid $jca-controls-color !default;
 $jca-controls-box-border-radius: 0 !default;
 $jca-controls-box-background: transparent !default;
-$jca-controls-box-margin: 5px !default;
+$jca-controls-box-margin: 0 5px 0 0 !default;
 
 // transition
-$jca-transition: 1 !default; // 1 = active
-$jca-transition-setting: all 0.5s ease !default;
+$jca-transition-enable: 1 !default; // 1 = enable
+$jca-transition: all 0.5s ease !default;
 
 // available ratios
 $jca-ratios: (
