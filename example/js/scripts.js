@@ -1,9 +1,9 @@
 var caConfig = {
     autoplay: false,
-    faVersion: 5,
+    useIcons: true,
 //    infinite: false,
     editor: {
-        enable : true
+        enable: true
     },
     steps: [
         {

@@ -52,12 +52,12 @@ new
 | Old                             | New                               |
 | ------------------------------- | --------------------------------- |
 | infinity: true                  | infinite: true                    |
-| fontawesomeVersion: null        | faVersion: null                   |
+| fontawesomeVersion: null        | useIcons: false                   |
 | controlsWrapper: '.controls'    | controlsWrapper: '.jca-controls'  |
 | backwardButton: '.backward'     | backwardButton: '.jca-backward'   |
 | playButton: '.play'             | playButton: '.jca-play'           |
 | pauseButton: '.pause'           | pauseButton: 'jca-.pause'         |
-| resetButton: '.reset'           | resetButton: '.jca-reset'         |
+| resetButton: '.reset'           | stopButton: '.jca-stop'           |
 | forwardButton: '.forward'       | forwardButton: '.jca-forward'     |
 | fullscreenButton: '.fullscreen' | expandButton: '.jca-expand'       |
 | classDone: 'done'               | classDone: 'jca-done'             |
@@ -89,10 +89,10 @@ new
             '<div class="jca-backward"></div>' +
             '<div class="jca-play"></div>' +
             '<div class="jca-pause"></div>' +
-            '<div class="jca-reset"></div>' +
+            '<div class="jca-stop"></div>' +
             '<div class="jca-forward"></div>' +
             '<div class="jca-expand"></div>' +
-            '<div class="jca-edit"></div>' +
+            '<div class="jca-editor"></div>' +
         '</div>'
 }
 ```

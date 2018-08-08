@@ -84,7 +84,7 @@
     height: 17px;
     border-left: 3px solid black;
     border-right: 3px solid black; }
-  .jca-controls .jca-reset:before {
+  .jca-controls .jca-stop:before {
     width: 15px;
     height: 15px;
     background-color: black; }
@@ -102,7 +102,7 @@
     border: 2px solid black;
     width: 17px;
     height: 13px; }
-  .jca-controls .jca-edit:before {
+  .jca-controls .jca-editor:before {
     width: 5px;
     height: 22px;
     left: 40%;
@@ -112,11 +112,7 @@
     top: 5%;
     border-radius: 10px; }
 
-.jca-fontawesome .jca-controls > div > .svg-inline--fa,
-.jca-fontawesome .jca-controls > div > .fas,
-.jca-fontawesome .jca-controls > div > .far,
-.jca-fontawesome .jca-controls > div > .fal,
-.jca-fontawesome .jca-controls > div > .fa {
+.jca-icons .jca-controls > div > * {
   position: absolute;
   left: 50%;
   top: 50%;
@@ -124,11 +120,11 @@
   font-size: 1rem;
   color: black; }
 
-.jca-fontawesome .jca-controls > div.jca-forward:before, .jca-fontawesome .jca-controls > div.jca-play:before, .jca-fontawesome .jca-controls > div.jca-pause:before, .jca-fontawesome .jca-controls > div.jca-reset:before, .jca-fontawesome .jca-controls > div.jca-backward:before, .jca-fontawesome .jca-controls > div.jca-expand:before, .jca-fontawesome .jca-controls > div.jca-edit:before, .jca-fontawesome .jca-controls > div.jca-backward:after, .jca-fontawesome .jca-controls > div.jca-forward:after {
+.jca-icons .jca-controls > div.jca-forward:before, .jca-icons .jca-controls > div.jca-play:before, .jca-icons .jca-controls > div.jca-pause:before, .jca-icons .jca-controls > div.jca-stop:before, .jca-icons .jca-controls > div.jca-backward:before, .jca-icons .jca-controls > div.jca-expand:before, .jca-icons .jca-controls > div.jca-editor:before, .jca-icons .jca-controls > div.jca-backward:after, .jca-icons .jca-controls > div.jca-forward:after {
   border: 0 none;
   background-color: transparent; }
 
-.jca-editor {
+.jca-editor-layer {
   position: fixed;
   color: grey;
   background-color: #212121;
@@ -137,87 +133,87 @@
   left: 0;
   z-index: 5;
   display: none; }
-  .jca-editor *, .jca-editor ::after, .jca-editor ::before {
+  .jca-editor-layer *, .jca-editor-layer ::after, .jca-editor-layer ::before {
     box-sizing: border-box;
     line-height: 1.25; }
-  .jca-editor .jca-container {
+  .jca-editor-layer .jca-container {
     display: flex;
     flex-direction: row;
     max-width: 1200px;
     margin: auto; }
-  .jca-editor .jca-col {
+  .jca-editor-layer .jca-col {
     flex: 25% 0 0;
     max-width: 25%;
     padding: 5px 15px; }
-  .jca-editor .jca-cord-dimension {
+  .jca-editor-layer .jca-cord-dimension {
     padding: 30px 15px; }
-    .jca-editor .jca-cord-dimension [type="number"] {
+    .jca-editor-layer .jca-cord-dimension [type="number"] {
       width: 55px;
       position: absolute;
       font-size: 12px; }
-      .jca-editor .jca-cord-dimension [type="number"][name="jca_top"] {
+      .jca-editor-layer .jca-cord-dimension [type="number"][name="jca_top"] {
         top: -10px;
         left: 50%;
         transform: translateX(-50%); }
-      .jca-editor .jca-cord-dimension [type="number"][name="jca_left"] {
+      .jca-editor-layer .jca-cord-dimension [type="number"][name="jca_left"] {
         top: 45%;
         left: -30px; }
-      .jca-editor .jca-cord-dimension [type="number"][name="jca_width"] {
+      .jca-editor-layer .jca-cord-dimension [type="number"][name="jca_width"] {
         bottom: -10px;
         left: 50%;
         transform: translateX(-50%); }
-      .jca-editor .jca-cord-dimension [type="number"][name="jca_height"] {
+      .jca-editor-layer .jca-cord-dimension [type="number"][name="jca_height"] {
         top: 45%;
         right: -30px; }
-    .jca-editor .jca-cord-dimension .jca-label {
+    .jca-editor-layer .jca-cord-dimension .jca-label {
       position: absolute;
       height: 0;
       width: 55px;
       text-align: center; }
-      .jca-editor .jca-cord-dimension .jca-label:before {
+      .jca-editor-layer .jca-cord-dimension .jca-label:before {
         content: attr(data-label);
         font-size: 17px; }
-      .jca-editor .jca-cord-dimension .jca-label.jca-top {
+      .jca-editor-layer .jca-cord-dimension .jca-label.jca-top {
         top: -30px;
         left: 50%;
         transform: translateX(-50%); }
-      .jca-editor .jca-cord-dimension .jca-label.jca-left {
+      .jca-editor-layer .jca-cord-dimension .jca-label.jca-left {
         left: -30px;
         top: 15%;
         height: 20px; }
-      .jca-editor .jca-cord-dimension .jca-label.jca-width {
+      .jca-editor-layer .jca-cord-dimension .jca-label.jca-width {
         bottom: -10px;
         left: 50%;
         transform: translateX(-50%); }
-      .jca-editor .jca-cord-dimension .jca-label.jca-height {
+      .jca-editor-layer .jca-cord-dimension .jca-label.jca-height {
         right: -30px;
         top: 15%;
         height: 20px; }
-    .jca-editor .jca-cord-dimension .jca-box {
+    .jca-editor-layer .jca-cord-dimension .jca-box {
       position: relative;
       width: 75px;
       height: 75px;
       border: 1px solid grey;
       margin: auto; }
-      .jca-editor .jca-cord-dimension .jca-box:before {
+      .jca-editor-layer .jca-cord-dimension .jca-box:before {
         content: '%';
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%); }
-  .jca-editor .jca-selector-breadcrumb a {
+  .jca-editor-layer .jca-selector-breadcrumb a {
     color: grey;
     text-decoration: underline; }
-  .jca-editor .jca-selector-breadcrumb span:last-child {
+  .jca-editor-layer .jca-selector-breadcrumb span:last-child {
     display: none; }
-  .jca-editor #jca-html {
+  .jca-editor-layer #jca-html {
     overflow: hidden;
     white-space: nowrap; }
-  .jca-editor .jca-new,
-  .jca-editor .jca-select,
-  .jca-editor .jca-remove {
+  .jca-editor-layer .jca-new,
+  .jca-editor-layer .jca-select,
+  .jca-editor-layer .jca-remove {
     font-size: 17px; }
-  .jca-editor [type="button"] {
+  .jca-editor-layer [type="button"] {
     font-size: 12px;
     cursor: pointer; }
 

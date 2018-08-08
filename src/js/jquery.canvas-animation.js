@@ -7,7 +7,7 @@
         var animationTimeouts = [];
         var currentAnimationStep = -1;
         var lastStepTimeout;
-        var config = $.extend({
+        var config = $.extend(true, {}, {
             steps: [],
             timeout: 0, // 0 = starts immediately the first step (milliseconds)
             resetDuration: 500, // time it takes to reset all animations (milliseconds)
@@ -15,18 +15,27 @@
             autoplay: true, // if true: plays animation instantly
             controls: true, // if true: adds controls to canvas
             editor: {
-                enable : false // if true: show editor on page
+                enable: false, // if true: show editor on page
+                wrapper: '.jca-editor-layer' // editor wrapper class
             },
-            faVersion: null, // fontawesome version (4 or 5)
-            faPrefix: 'fas', // fontawesome prefix: v4 = fa; v5 = fas, far or fal
+            useIcons: false, // use icons from an icon framework instead of css icons
+            icons: {
+                backward: '<i class="fas fa-step-backward"></i>',
+                play: '<i class="fas fa-play"></i>',
+                pause: '<i class="fas fa-pause"></i>',
+                stop: '<i class="fas fa-stop"></i>',
+                forward: '<i class="fas fa-step-forward"></i>',
+                expand: '<i class="fas fa-expand"></i>',
+                editor: '<i class="fas fa-edit"></i>'
+            },
             controlsWrapper: '.jca-controls', // class of the controls wrapper
             backwardButton: '.jca-backward', // class of step backward button
             playButton: '.jca-play', // class of play button
             pauseButton: '.jca-pause', // class of pause button
-            resetButton: '.jca-reset', // class of reset button
+            stopButton: '.jca-stop', // class of reset button
             forwardButton: '.jca-forward', // class of step forward button
             expandButton: '.jca-expand', // class of expand button
-            editButton: '.jca-edit', // class of edit button
+            editorButton: '.jca-editor', // class of edit button
             classDone: 'jca-done', // is set if the animation is done
             classWait: 'jca-wait', // is set if autoplay : false and animation is never played or user clicked on reset button
             classForward: 'jca-forward', // is set if user clicked forward
@@ -37,10 +46,10 @@
                     '<div class="jca-backward"></div>' +
                     '<div class="jca-play"></div>' +
                     '<div class="jca-pause"></div>' +
-                    '<div class="jca-reset"></div>' +
+                    '<div class="jca-stop"></div>' +
                     '<div class="jca-forward"></div>' +
                     '<div class="jca-expand"></div>' +
-                    '<div class="jca-edit"></div>' +
+                    '<div class="jca-editor"></div>' +
                 '</div>',
             onPlay: null, // called before first animation step
             onDone: null, // called after last animation step
@@ -52,28 +61,22 @@
         
         thisCanvas.wrap('<div class="' + config.classWrap + '"></div>');
         
-        switch (parseInt(config.faVersion)) {
-            case 4:
-            case 5:
-                $('html').addClass('jca-fontawesome');
-                controlsTemplate.find(config.backwardButton).append('<i class="' + config.faPrefix + ' fa-step-backward"></i>');
-                controlsTemplate.find(config.playButton).append('<i class="' + config.faPrefix + ' fa-play"></i>');
-                controlsTemplate.find(config.pauseButton).append('<i class="' + config.faPrefix + ' fa-pause"></i>');
-                controlsTemplate.find(config.resetButton).append('<i class="' + config.faPrefix + ' fa-stop"></i>');
-                controlsTemplate.find(config.forwardButton).append('<i class="' + config.faPrefix + ' fa-step-forward"></i>');
-                controlsTemplate.find(config.expandButton).append('<i class="' + config.faPrefix + ' fa-expand"></i>');
-                controlsTemplate.find(config.editButton).append('<i class="' + config.faPrefix + ' fa-edit"></i>');
-                break;
-                
-            default:
-                break;
+        if (config.useIcons) {
+            $('html').addClass('jca-icons');
+            controlsTemplate.find(config.backwardButton).append(config.icons.backward);
+            controlsTemplate.find(config.playButton).append(config.icons.play);
+            controlsTemplate.find(config.pauseButton).append(config.icons.pause);
+            controlsTemplate.find(config.stopButton).append(config.icons.stop);
+            controlsTemplate.find(config.forwardButton).append(config.icons.forward);
+            controlsTemplate.find(config.expandButton).append(config.icons.expand);
+            controlsTemplate.find(config.editorButton).append(config.icons.editor);
         }
         
         // if controls enabled
         if (config.controls) {
             // if editor is disabled
             if (!config.editor.enable) {
-                controlsTemplate.find(config.editButton).remove();
+                controlsTemplate.find(config.editorButton).remove();
             }
             thisCanvas.closest('.' + config.classWrap).append(controlsTemplate.clone());
         }
@@ -286,7 +289,7 @@
         });
         
         // click on reset
-        thisCanvas.next(config.controlsWrapper).find(config.resetButton).click(function() {
+        thisCanvas.next(config.controlsWrapper).find(config.stopButton).click(function() {
             config.infinite = false;
             stop(true);
             reset();
@@ -334,11 +337,11 @@
             thisCanvas.canvasAnimationEditor(config.editor);
             
             // toggle edit bar
-            thisCanvas.next(config.controlsWrapper).find(config.editButton).click(function() {
-                if ($('.jca-editor').is(':visible')) {
-                    $('.jca-editor').hide();
+            thisCanvas.next(config.controlsWrapper).find(config.editorButton).click(function() {
+                if ($(config.editor.wrapper).is(':visible')) {
+                    $(config.editor.wrapper).hide();
                 } else {
-                    $('.jca-editor').show();
+                    $(config.editor.wrapper).show();
                 }
             });
         }

@@ -17,8 +17,8 @@ To enable this feature you have to `editor: {enable: true}` in your canvas confi
 ### Draggable Items (Editor)
 Draggable items is by default enabled. It works only with Editor and [jQuery UI Draggable](https://jqueryui.com/draggable/).
 
-### Fontawesome 5
-It is now possible to use FA5 with [Web Fonts & CSS](https://fontawesome.com/how-to-use/on-the-web/setup/getting-started?using=web-fonts-with-css) or [SVG & JS](https://fontawesome.com/how-to-use/on-the-web/setup/getting-started?using=svg-with-js).
+### Icon Framework
+It is now possible to use every icon framework like [Fontawesome 5](https://fontawesome.com) for example.
 
 ### CSS Namespace
 All html classes and ids starts with `jca-`.
@@ -72,17 +72,27 @@ $('#canvas').canvasAnimation({
     autoplay: true, // if true: plays animation instantly
     controls: true, // if true: adds controls to canvas
     editor: {
-        enable: false // if true: show editor on page
+        enable: false, // if true: show editor on page
+        wrapper: '.jca-editor-layer' // editor wrapper class
     },
-    fontawesomeVersion: null, // fontawesome version (4 or 5)
+    useIcons: false, // use icons from an icon framework instead css icons
+    icons: {
+        backward: '<i class="fas fa-step-backward"></i>',
+        play: '<i class="fas fa-play"></i>',
+        pause: '<i class="fas fa-pause"></i>',
+        stop: '<i class="fas fa-stop"></i>',
+        forward: '<i class="fas fa-step-forward"></i>',
+        expand: '<i class="fas fa-expand"></i>',
+        editor: '<i class="fas fa-edit"></i>'
+    },
     controlsWrapper: '.jca-controls', // class of the controls wrapper
     backwardButton: '.jca-backward', // class of step backward button
     playButton: '.jca-play', // class of play button
     pauseButton: '.jca-pause', // class of pause button
-    resetButton: '.jca-reset', // class of reset button
+    stopButton: '.jca-stop', // class of reset button
     forwardButton: '.jca-forward', // class of step forward button
     expandButton: '.jca-expand', // class of expand button
-    editButton: '.jca-edit', // class of edit button
+    editorButton: '.jca-editor', // class of edit button
     classDone: 'jca-done', // is set if the animation is done
     classWait: 'jca-wait', // is set if autoplay : false and animation is never played or user clicked on reset button
     classForward: 'jca-forward', // is set if user clicked forward
@@ -93,10 +103,10 @@ $('#canvas').canvasAnimation({
             '<div class="jca-backward"></div>' +
             '<div class="jca-play"></div>' +
             '<div class="jca-pause"></div>' +
-            '<div class="jca-reset"></div>' +
+            '<div class="jca-stop"></div>' +
             '<div class="jca-forward"></div>' +
             '<div class="jca-expand"></div>' +
-            '<div class="jca-edit"></div>' +
+            '<div class="jca-editor"></div>' +
         '</div>',
     onPlay: null, // called before first animation step
     onDone: null, // called after last animation step
@@ -136,7 +146,7 @@ $('#canvas').canvasAnimationEditor({
         confirmRemoveStyle: 'Are you sure to remove style?',
         alertCanvasId: 'Canvas needs attribute "id".'
     },
-    template: '<div class="jca-editor">' +
+    template: '<div class="jca-editor-layer">' +
         '<div class="jca-container">' +
             '<div class="jca-col jca-cord-dimension">' +
                 '<div class="jca-box">' +

@@ -61,7 +61,7 @@
         border-right: 3px * @jca-controls-size solid @jca-controls-icon-color;
     }
     
-    .jca-reset:before {
+    .jca-stop:before {
         width: 15px * @jca-controls-size;
         height: 15px * @jca-controls-size;
         background-color: @jca-controls-icon-color;
@@ -89,7 +89,7 @@
         height: 13px * @jca-controls-size;
     }
     
-    .jca-edit:before {
+    .jca-editor:before {
         width: 5px * @jca-controls-size;
         height: 22px * @jca-controls-size;
         left: 40%;
@@ -101,14 +101,10 @@
     }
 }
 
-.jca-fontawesome {
+.jca-icons {
     .jca-controls {
         & > div {
-            & > .svg-inline--fa,
-            & > .fas,
-            & > .far,
-            & > .fal,
-            & > .fa {
+            & > * {
                 position: absolute;
                 left: 50%;
                 top: 50%;
@@ -121,10 +117,10 @@
             &.jca-forward:before,
             &.jca-play:before,
             &.jca-pause:before,
-            &.jca-reset:before,
+            &.jca-stop:before,
             &.jca-backward:before,
             &.jca-expand:before,
-            &.jca-edit:before,
+            &.jca-editor:before,
             &.jca-backward:after,
             &.jca-forward:after {
                 border: 0 none;

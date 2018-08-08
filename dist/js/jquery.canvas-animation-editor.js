@@ -8,7 +8,7 @@
         var itemWidthCache = '';
         var itemTopCache = 0;
         var itemLeftCache = 0;
-        var config = $.extend({
+        var config = $.extend(true, {}, {
             enable: false, // if true: show editor on page
             decimal: 2, // accuracy of numbers
             draggableItems: true, // jQuery UI Draggable is required for this feature
@@ -38,7 +38,7 @@
                 confirmRemoveStyle: 'Are you sure to remove style?',
                 alertCanvasId: 'Canvas needs attribute "id".'
             },
-            template: '<div class="jca-editor">' +
+            template: '<div class="jca-editor-layer">' +
                 '<div class="jca-container">' +
                     '<div class="jca-col jca-cord-dimension">' +
                         '<div class="jca-box">' +
