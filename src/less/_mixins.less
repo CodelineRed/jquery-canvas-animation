@@ -1,7 +1,7 @@
 .jca-ratios(@names; @values; @index) when (@index > 0) {
     .jca-ratios(@names; @values; (@index - 1)); // decrement.
-    @name  : extract(@names, @index);
-    @ratio : extract(@values, @index);
+    @name: extract(@names, @index);
+    @ratio: extract(@values, @index);
 
     &.jca-ratio-@{name}::before {
         padding-top: @ratio;

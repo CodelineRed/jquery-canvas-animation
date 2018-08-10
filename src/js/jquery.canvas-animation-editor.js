@@ -2,8 +2,8 @@
     $.fn.canvasAnimationEditor = function(config) {
         var thisCanvas = this;
         var uniqueHashes = [];
-        var parentWidthCache = '';
-        var parentHeightCache = '';
+        var parentWidthCache = thisCanvas.width().toFixed(0);
+        var parentHeightCache = thisCanvas.height().toFixed(0);
         var itemHeightCache = '';
         var itemWidthCache = '';
         var itemTopCache = 0;
@@ -12,6 +12,7 @@
             enable: false, // if true: show editor on page
             decimal: 2, // accuracy of numbers
             draggableItems: true, // jQuery UI Draggable is required for this feature
+            wrapper: '.jca-editor-container', // editor wrapper class
             labels: {
                 top: 'top',
                 left: 'left',
@@ -38,7 +39,7 @@
                 confirmRemoveStyle: 'Are you sure to remove style?',
                 alertCanvasId: 'Canvas needs attribute "id".'
             },
-            template: '<div class="jca-editor-layer">' +
+            template: '<div class="jca-editor-container">' +
                 '<div class="jca-container">' +
                     '<div class="jca-col jca-cord-dimension">' +
                         '<div class="jca-box">' +
@@ -53,14 +54,16 @@
                         '</div>' +
                     '</div>' +
                     '<div class="jca-col jca-selector-breadcrumb"></div>' +
-                    '<div class="jca-col">' +
+                    '<div class="jca-col jca-code-col">' +
                         '<div id="jca-html"></div>' +
                         '<div id="jca-css"></div>' +
                     '</div>' +
-                    '<div class="jca-col">' +
+                    '<div class="jca-col jca-button-col">' +
                         '<span class="jca-new"></span><input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
                         '<span class="jca-select"></span><input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/>' +
-                        '<span class="jca-remove"></span><input type="button" name="jca_remove_item" value=""/> <input type="button" name="jca_remove_style" value=""/><br/>' +
+                        '<span class="jca-remove"></span><input type="button" name="jca_remove_item" value=""/> <input type="button" name="jca_remove_style" value=""/><br/><br/>' +
+                        '<span class="jca-width"></span> <span class="jca-width-val"></span> <span class="jca-height"></span> <span class="jca-height-val"></span><br/>' +
+                        '<span class="jca-top"></span> <span class="jca-top-val"></span> <span class="jca-left"></span> <span class="jca-left-val"></span>' +
                     '</div>' +
                 '</div>' +
             '</div>'
@@ -77,6 +80,10 @@
         editorTemplate.find('.jca-label.jca-left').attr('data-label', config.labels.left);
         editorTemplate.find('.jca-label.jca-width').attr('data-label', config.labels.width);
         editorTemplate.find('.jca-label.jca-height').attr('data-label', config.labels.height);
+        editorTemplate.find('.jca-button-col .jca-top').text(config.labels.top + ':');
+        editorTemplate.find('.jca-button-col .jca-left').text(config.labels.left + ':');
+        editorTemplate.find('.jca-button-col .jca-width').text(config.labels.width + ':');
+        editorTemplate.find('.jca-button-col .jca-height').text(config.labels.height + ':');
         editorTemplate.find('[name="jca_new_item"]').val(config.labels.newItemBlank);
         editorTemplate.find('[name="jca_new_item_ext"]').val(config.labels.newItemExt);
         editorTemplate.find('[name="jca_css"]').val(config.labels.selectCss);
@@ -86,7 +93,7 @@
         editorTemplate.find('.jca-new').text(config.labels.newItem);
         editorTemplate.find('.jca-select').text(config.labels.select);
         editorTemplate.find('.jca-remove').text(config.labels.remove);
-        $('body').prepend(editorTemplate);
+        thisCanvas.parent().append(editorTemplate);
         
         if (config.decimal < 1) config.decimal = 2;
         editorTemplate.find('[name="jca_top"]').attr('step', 1 / Math.pow(10, config.decimal));
@@ -96,6 +103,7 @@
         
         thisCanvas.attr('data-hash', getUniqueHash());
         $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(thisCanvas));
+        setPixelDimensions(thisCanvas);
         
         $('*', thisCanvas).each(function() {
             $(this).attr('data-hash', getUniqueHash());
@@ -111,9 +119,14 @@
             $('*', thisCanvas).removeClass('jca-active-element');
             $('*', thisCanvas).css('background-color', '');
             
-            if (typeof item.attr('id') === 'undefined' 
-                    || (typeof item.attr('id') !== 'undefined' 
-                    && item.attr('id') !== thisCanvas.attr('id'))) {
+            if (isCanvas(item)) {
+                $('[name="jca_top"]').val('');
+                $('[name="jca_left"]').val('');
+                $('[name="jca_width"]').val('');
+                $('[name="jca_height"]').val('');
+                $('#jca-css').html('');
+                $('#jca-html').html('');
+            } else {
                 $('[name="jca_top"]').val(parseFloat(item.css('top')));
                 $('[name="jca_left"]').val(parseFloat(item.css('left')));
                 $('[name="jca_width"]').val(parseFloat(item.css('width')));
@@ -122,21 +135,15 @@
                 item.css('background-color', getRandomColor());
                 $('#jca-css').html(getCss(item));
                 $('#jca-html').html(getHtml(item));
-            } else {
-                $('[name="jca_top"]').val('');
-                $('[name="jca_left"]').val('');
-                $('[name="jca_width"]').val('');
-                $('[name="jca_height"]').val('');
-                $('#jca-css').html('');
-                $('#jca-html').html('');
             }
             
             thisCanvas.show();
             $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
+            setPixelDimensions(item);
+            parentWidthCache = item.width().toFixed(0);
+            parentHeightCache = item.height().toFixed(0);
             
-            if (typeof item.attr('id') === 'undefined' 
-                || (typeof item.attr('id') !== 'undefined' 
-                && item.attr('id') !== thisCanvas.attr('id'))) {
+            if (!isCanvas(item)) {
                 setItemDraggable(item);
             }
         });
@@ -198,12 +205,12 @@
         /**
          * Adds item to canvas
          * 
-         * @param {String} className
-         * @param {String} top
-         * @param {String} left
-         * @param {String} width
-         * @param {String} height
-         * @returns {void}
+         * @param {string} className
+         * @param {string} top
+         * @param {string} left
+         * @param {string} width
+         * @param {string} height
+         * @returns {undefined}
          */
         function addItem(className, top, left, width, height) {
             var item = $('<div class="' + className + '" data-class="' + className + '"></div>');
@@ -239,7 +246,7 @@
          * Returns css source code from item
          * 
          * @param {object} item
-         * @returns {String}
+         * @returns {string}
          */
         function getCss(item) {
             var sourceCode = getIdClass(item) + ' {<br/>';
@@ -255,7 +262,7 @@
          * Returns raw html
          * 
          * @param {object} item
-         * @returns {String}
+         * @returns {string}
          */
         function getHtml(item) {
             return htmlEscape('<div class="' + item.data('class') + '"></div>');
@@ -265,7 +272,7 @@
          * Returns id and classes from item
          * 
          * @param {object} item
-         * @returns {String}
+         * @returns {string}
          */
         function getIdClass(item) {
             var item = item.clone();
@@ -289,7 +296,7 @@
         /**
          * Returns random color
          * 
-         * @returns {String}
+         * @returns {string}
          */
         function getRandomColor() {
             var letters = '0123456789ABCDEF';
@@ -304,15 +311,12 @@
          * Returns breadcrumb from canvas until item
          * 
          * @param {object} item
-         * @returns {String}
+         * @returns {string}
          */
         function getSelectorBreadcrumb(item) {
-            var itemId = item.attr('id');
             var result = '';
             
-            if (typeof itemId === 'undefined' 
-                    || (typeof itemId !== 'undefined' 
-                    && itemId !== thisCanvas.attr('id'))) {
+            if (!isCanvas(item)) {
                 result = getSelectorBreadcrumb(item.parent());
             }
             
@@ -322,7 +326,7 @@
         /**
          * Returns a unique hash
          * 
-         * @returns {String}
+         * @returns {string}
          */
         function getUniqueHash() {
             var hash = '';
@@ -336,10 +340,29 @@
         }
         
         /**
+         * Sets pixel dimension in jca-button-col
+         * 
+         * @param {object} item
+         * @returns {undefined}
+         */
+        function setPixelDimensions(item) {
+            if (isCanvas(item)) {
+                $('.jca-button-col .jca-top-val').text('0px;');
+                $('.jca-button-col .jca-left-val').text('0px;');
+            } else {
+                $('.jca-button-col .jca-top-val').text(parseInt(item.css('top')).toFixed(0) + 'px;');
+                $('.jca-button-col .jca-left-val').text(parseInt(item.css('left')).toFixed(0) + 'px;');
+            }
+            
+            $('.jca-button-col .jca-width-val').text(item.width().toFixed(0) + 'px;');
+            $('.jca-button-col .jca-height-val').text(item.height().toFixed(0) + 'px;');
+        }
+        
+        /**
          * Sets item draggable
          * 
          * @param {object} item
-         * @returns {void}
+         * @returns {undefined}
          */
         function setItemDraggable(item) {
             if (config.draggableItems && typeof $.fn.draggable === 'function' 
@@ -358,6 +381,7 @@
                         $('#jca-html').html(getHtml(item));
                         thisCanvas.show();
                         $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
+                        setPixelDimensions(item);
                         if (!$(ui.helper).hasClass('jca-active-element')) $(ui.helper).addClass('jca-active-element');
                     }
                 });
@@ -367,7 +391,7 @@
         /**
          * Sets input values to item
          * 
-         * @returns {void}
+         * @returns {undefined}
          */
         function setItemStyle() {
             if ($('.jca-active-element').length) {
@@ -379,19 +403,21 @@
                 thisCanvas.hide();
                 $('#jca-css').html(getCss(item));
                 thisCanvas.show();
+                setPixelDimensions(item);
             } else {
                 $('[name="jca_top"]').val('');
                 $('[name="jca_left"]').val('');
                 $('[name="jca_width"]').val('');
                 $('[name="jca_height"]').val('');
+                setPixelDimensions(thisCanvas);
             }
         }
         
         /**
          * Selects text in given element
          * 
-         * @param {String} item id from item
-         * @returns {void}
+         * @param {string} item id from item
+         * @returns {undefined}
          */
         function selectText(item) {
             var doc = document
@@ -414,8 +440,8 @@
         /**
          * Escapes HTML chars
          * 
-         * @param {String} str
-         * @returns {String}
+         * @param {string} str
+         * @returns {string}
          */
         function htmlEscape(str) {
             return str
@@ -429,8 +455,8 @@
         /**
          * Unescapes HTML chars
          * 
-         * @param {String} str
-         * @returns {String}
+         * @param {string} str
+         * @returns {string}
          */
         function htmlUnescape(str){
             return str
@@ -439,6 +465,16 @@
                 .replace(/&lt;/g, '<')
                 .replace(/&gt;/g, '>')
                 .replace(/&amp;/g, '&');
+        }
+        
+        /**
+         * Returns TRUE if given item is canvas
+         * 
+         * @param {object} item
+         * @returns {boolean}
+         */
+        function isCanvas(item) {
+            return typeof item.attr('id') !== 'undefined' && item.attr('id') === thisCanvas.attr('id');
         }
     };
 })(jQuery);

@@ -73,9 +73,9 @@ $('#canvas').canvasAnimation({
     controls: true, // if true: adds controls to canvas
     editor: {
         enable: false, // if true: show editor on page
-        wrapper: '.jca-editor-layer' // editor wrapper class
+        wrapper: '.jca-editor-container' // editor wrapper class
     },
-    useIcons: false, // use icons from an icon framework instead css icons
+    useIcons: false, // use icons from an icon framework instead of css icons
     icons: {
         backward: '<i class="fas fa-step-backward"></i>',
         play: '<i class="fas fa-play"></i>',
@@ -120,6 +120,7 @@ $('#canvas').canvasAnimationEditor({
     enable: false, // if true: show editor on page
     decimal: 2, // accuracy of numbers
     draggableItems: true, // jQuery UI Draggable is required for this feature
+    wrapper: '.jca-editor-container', // editor wrapper class
     labels: {
         top: 'top',
         left: 'left',
@@ -146,7 +147,7 @@ $('#canvas').canvasAnimationEditor({
         confirmRemoveStyle: 'Are you sure to remove style?',
         alertCanvasId: 'Canvas needs attribute "id".'
     },
-    template: '<div class="jca-editor-layer">' +
+    template: '<div class="jca-editor-container">' +
         '<div class="jca-container">' +
             '<div class="jca-col jca-cord-dimension">' +
                 '<div class="jca-box">' +
@@ -161,14 +162,16 @@ $('#canvas').canvasAnimationEditor({
                 '</div>' +
             '</div>' +
             '<div class="jca-col jca-selector-breadcrumb"></div>' +
-            '<div class="jca-col">' +
+            '<div class="jca-col jca-code-col">' +
                 '<div id="jca-html"></div>' +
                 '<div id="jca-css"></div>' +
             '</div>' +
-            '<div class="jca-col">' +
+            '<div class="jca-col jca-button-col">' +
                 '<span class="jca-new"></span><input type="button" name="jca_new_item" value=""/> <input type="button" name="jca_new_item_ext" value=""/><br/>' +
                 '<span class="jca-select"></span><input type="button" name="jca_html" value=""/> <input type="button" name="jca_css" value=""/><br/>' +
-                '<span class="jca-remove"></span><input type="button" name="jca_remove_item" value=""/> <input type="button" name="jca_remove_style" value=""/><br/>' +
+                '<span class="jca-remove"></span><input type="button" name="jca_remove_item" value=""/> <input type="button" name="jca_remove_style" value=""/><br/><br/>' +
+                '<span class="jca-width"></span> <span class="jca-width-val"></span> <span class="jca-height"></span> <span class="jca-height-val"></span><br/>' +
+                '<span class="jca-top"></span> <span class="jca-top-val"></span> <span class="jca-left"></span> <span class="jca-left-val"></span>' +
             '</div>' +
         '</div>' +
     '</div>'

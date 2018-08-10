@@ -39,10 +39,10 @@
     }
 }
 
-:fullscreen [class*="canvas-ratio-"], 
-:-ms-fullscreen [class*="canvas-ratio-"],
-:-moz-full-screen [class*="canvas-ratio-"], 
-:-webkit-fullscreen [class*="canvas-ratio-"] {
+:fullscreen [class*="jca-ratio-"], 
+:-ms-fullscreen [class*="jca-ratio-"],
+:-moz-full-screen [class*="jca-ratio-"], 
+:-webkit-fullscreen [class*="jca-ratio-"] {
     width: auto!important;
     max-width: none!important;
 }

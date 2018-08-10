@@ -1,12 +1,11 @@
-.jca-editor-layer {
-    position: fixed;
-    color: grey;
-    background-color: #212121;
+.jca-editor-container {
+    margin-top: 25px;
+    color: @jca-editor-color;
+    background: @jca-editor-background;
     bottom: 0;
     width: 100%;
     left: 0;
     z-index: 5;
-    display: none;
     
     *, ::after, ::before {
         box-sizing: border-box;
@@ -32,7 +31,7 @@
         [type="number"] {
             width: 55px;
             position: absolute;
-            font-size: 12px;
+            font: @jca-editor-button-font;
             
             &[name="jca_top"] {
                 top: -10px;
@@ -65,7 +64,8 @@
             
             &:before {
                 content: attr(data-label);
-                font-size: 17px;
+                font: @jca-editor-font;
+                line-height: 1;
             }
             
             &.jca-top {
@@ -97,7 +97,7 @@
             position: relative;
             width: 75px;
             height: 75px;
-            border: 1px solid grey;
+            border: @jca-editor-box-border;
             margin: auto;
             
             &:before {
@@ -106,40 +106,52 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%,-50%);
+                font: @jca-editor-font;
+                line-height: 1;
             }
         }
     }
     
     .jca-selector-breadcrumb {
         a {
-            color: grey;
-            text-decoration: underline;
+            font: @jca-editor-font;
+            color: @jca-editor-breadcrumb-color;
+            text-decoration: @jca-editor-breadcrumb-decoration;
         }
         
-        span:last-child {
-            display: none;
+        span {
+            font: @jca-editor-font;
+            line-height: 1;
+            
+            &:last-child {
+                display: none;
+            }
+        }
+        
+    }
+    
+    .jca-code-col {
+        #jca-html {
+            overflow: hidden;
+            white-space: nowrap;
+            font: @jca-editor-font;
+        }
+
+        #jca-css {
+            font: @jca-editor-font;
         }
     }
     
-    #jca-html {
-        overflow: hidden;
-        white-space: nowrap;
+    .jca-button-col {
+        span {
+            font: @jca-editor-font;
+            line-height: 1;
+        }
     }
     
-    .jca-new,
-    .jca-select,
-    .jca-remove {
-        font-size: 17px;
-    }
     
     [type="button"] {
-        font-size: 12px;
+        font: @jca-editor-button-font;
         cursor: pointer;
-    }
-}
-
-.jca-editor-enable {
-    body {
-        margin-bottom: 175px;
     }
 }

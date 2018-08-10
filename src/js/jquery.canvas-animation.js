@@ -16,7 +16,7 @@
             controls: true, // if true: adds controls to canvas
             editor: {
                 enable: false, // if true: show editor on page
-                wrapper: '.jca-editor-layer' // editor wrapper class
+                wrapper: '.jca-editor-container' // editor wrapper class
             },
             useIcons: false, // use icons from an icon framework instead of css icons
             icons: {
@@ -82,7 +82,7 @@
         }
         
         /**
-         * @returns {void}
+         * @returns {undefined}
          */
         var callCallback = function(callback) {
             // if callback is defined
@@ -92,7 +92,7 @@
         };
         
         /**
-         * @returns {void}
+         * @returns {undefined}
          */
         var enterFullscreen = function(element) {
             if(element.requestFullscreen) {
@@ -107,7 +107,7 @@
         };
         
         /**
-         * @returns {void}
+         * @returns {undefined}
          */
         var exitFullscreen = function() {
             if(document.exitFullscreen) {
@@ -120,7 +120,7 @@
         };
         
         /**
-         * @returns {void}
+         * @returns {undefined}
          */
         var play = function() {
             var timeout = config.timeout;
@@ -174,7 +174,7 @@
         
         /**
          * @param {int} duration
-         * @returns {void}
+         * @returns {undefined}
          */
         var lastStep = function(duration) {
             lastStepTimeout = setTimeout(function() {
@@ -190,7 +190,7 @@
         };
         
         /**
-         * @returns {void}
+         * @returns {undefined}
          */
         var reset = function() {
             // reset classes
@@ -202,7 +202,7 @@
         
         /**
          * @param {bool} callReset
-         * @returns {void}
+         * @returns {undefined}
          */
         var stop = function(callReset) {
             // if animationSteps is not empty

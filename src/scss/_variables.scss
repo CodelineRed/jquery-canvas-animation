@@ -21,3 +21,12 @@ $jca-ratios: (
   '2by1': percentage(1 / 2),
   '1by1': percentage(1 / 1),
 ) !default;
+
+// editor
+$jca-editor-color: grey !default;
+$jca-editor-font: 15px arial, sans-serif !default;
+$jca-editor-button-font: 12px arial, sans-serif !default;
+$jca-editor-background: #212121 !default;
+$jca-editor-box-border: 1px solid $jca-editor-color !default;
+$jca-editor-breadcrumb-color: $jca-editor-color !default;
+$jca-editor-breadcrumb-decoration: underline !default;
