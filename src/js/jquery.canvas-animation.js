@@ -1,6 +1,7 @@
 (function($) {
     $.fn.canvasAnimation = function(config) {
         if (this.attr('id') === 'undefined') {
+            alert('Canvas must have attribute "id".');
             return;
         }
         var thisCanvas = this;

@@ -145,7 +145,7 @@ $('#canvas').canvasAnimationEditor({
         confirmAppendPrepend: 'OK = append item / Cancel = prepend item',
         confirmRemoveItem: 'Are you sure to remove item?',
         confirmRemoveStyle: 'Are you sure to remove style?',
-        alertCanvasId: 'Canvas needs attribute "id".'
+        alertCanvasId: 'Canvas must have attribute "id".'
     },
     template: '<div class="jca-editor-container">' +
         '<div class="jca-container">' +

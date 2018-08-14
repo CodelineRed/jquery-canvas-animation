@@ -148,22 +148,22 @@
     padding: 30px 15px; }
     .jca-editor-container .jca-cord-dimension [type="number"] {
       width: 55px;
-      position: absolute;
+      position: relative;
       font: 12px arial, sans-serif; }
       .jca-editor-container .jca-cord-dimension [type="number"][name="jca_top"] {
         top: -10px;
         left: 50%;
         transform: translateX(-50%); }
       .jca-editor-container .jca-cord-dimension [type="number"][name="jca_left"] {
-        top: 45%;
+        top: 10%;
         left: -30px; }
       .jca-editor-container .jca-cord-dimension [type="number"][name="jca_width"] {
-        bottom: -10px;
+        bottom: -15px;
         left: 50%;
         transform: translateX(-50%); }
       .jca-editor-container .jca-cord-dimension [type="number"][name="jca_height"] {
-        top: 45%;
-        right: -30px; }
+        top: -50%;
+        right: -50px; }
     .jca-editor-container .jca-cord-dimension .jca-label {
       position: absolute;
       height: 0;

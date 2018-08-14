@@ -37,7 +37,7 @@
                 confirmAppendPrepend: 'OK = append item / Cancel = prepend item',
                 confirmRemoveItem: 'Are you sure to remove item?',
                 confirmRemoveStyle: 'Are you sure to remove style?',
-                alertCanvasId: 'Canvas needs attribute "id".'
+                alertCanvasId: 'Canvas must have attribute "id".'
             },
             template: '<div class="jca-editor-container">' +
                 '<div class="jca-container">' +
@@ -96,18 +96,17 @@
         thisCanvas.parent().append(editorTemplate);
         
         if (config.decimal < 1) config.decimal = 2;
-        editorTemplate.find('[name="jca_top"]').attr('step', 1 / Math.pow(10, config.decimal));
-        editorTemplate.find('[name="jca_left"]').attr('step', 1 / Math.pow(10, config.decimal));
-        editorTemplate.find('[name="jca_width"]').attr('step', 1 / Math.pow(10, config.decimal));
-        editorTemplate.find('[name="jca_height"]').attr('step', 1 / Math.pow(10, config.decimal));
+        editorTemplate.find('[name="jca_top"],[name="jca_left"],[name="jca_width"],[name="jca_height"]').attr('step', 1 / Math.pow(10, config.decimal));
         
         thisCanvas.attr('data-hash', getUniqueHash());
-        $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(thisCanvas));
+        setSelectorBreadcrumb(thisCanvas);
         setPixelDimensions(thisCanvas);
         
         $('*', thisCanvas).each(function() {
-            $(this).attr('data-hash', getUniqueHash());
-            $(this).attr('data-class', $(this).attr('class'));
+            $(this).attr({
+                dataHash: getUniqueHash(),
+                dataClass: $(this).attr('class')
+            });
             setItemDraggable($(this));
         });
         
@@ -120,12 +119,8 @@
             $('*', thisCanvas).css('background-color', '');
             
             if (isCanvas(item)) {
-                $('[name="jca_top"]').val('');
-                $('[name="jca_left"]').val('');
-                $('[name="jca_width"]').val('');
-                $('[name="jca_height"]').val('');
-                $('#jca-css').html('');
-                $('#jca-html').html('');
+                $('[name="jca_top"],[name="jca_left"],[name="jca_width"],[name="jca_height"]').val('');
+                $('#jca-css,#jca-html').html('');
             } else {
                 $('[name="jca_top"]').val(parseFloat(item.css('top')));
                 $('[name="jca_left"]').val(parseFloat(item.css('left')));
@@ -138,7 +133,7 @@
             }
             
             thisCanvas.show();
-            $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
+            setSelectorBreadcrumb(item);
             setPixelDimensions(item);
             parentWidthCache = item.width().toFixed(0);
             parentHeightCache = item.height().toFixed(0);
@@ -214,13 +209,15 @@
          */
         function addItem(className, top, left, width, height) {
             var item = $('<div class="' + className + '" data-class="' + className + '"></div>');
-            item.css('position', 'absolute');
-            item.css('top', top);
-            item.css('left', left);
-            item.css('width', width);
-            item.css('height', height);
+            item.css({
+                position: 'absolute',
+                top: top,
+                left: left,
+                width: width,
+                height: height,
+                backgroundColor: getRandomColor()
+            });
             item.attr('data-hash', getUniqueHash());
-            item.css('background-color', getRandomColor());
             var hashSelector = '[data-hash="' + item.attr('data-hash') + '"]';
             $('head').append('<style>' +hashSelector + '{background-color:' + getRandomColor() + '}</style>');
             
@@ -243,19 +240,34 @@
         }
         
         /**
+         * Returns breadcrumb from canvas until item
+         * 
+         * @param {object} item
+         * @returns {string}
+         */
+        function generateSelectorBreadcrumb(item) {
+            var result = '';
+            
+            if (!isCanvas(item)) {
+                result = generateSelectorBreadcrumb(item.parent());
+            }
+            
+            return result + '<a href="' + item.data('hash') + '">' + getIdClass(item) + '</a> <span class="jca-pointer">></span> ';
+        }
+        
+        /**
          * Returns css source code from item
          * 
          * @param {object} item
          * @returns {string}
          */
         function getCss(item) {
-            var sourceCode = getIdClass(item) + ' {<br/>';
-            sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;top: ' + item.css('top') + ';<br>';
-            sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;left: ' + item.css('left') + ';<br>';
-            sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;width: ' + item.css('width') + ';<br>';
-            sourceCode += '&nbsp;&nbsp;&nbsp;&nbsp;height: ' + item.css('height') + ';<br>';
-            sourceCode += '}';
-            return sourceCode;
+            return getIdClass(item) + ' {<br/>' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;top: ' + item.css('top') + ';<br>' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;left: ' + item.css('left') + ';<br>' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;width: ' + item.css('width') + ';<br>' +
+                '&nbsp;&nbsp;&nbsp;&nbsp;height: ' + item.css('height') + ';<br>' +
+            '}';
         }
         
         /**
@@ -275,7 +287,6 @@
          * @returns {string}
          */
         function getIdClass(item) {
-            var item = item.clone();
             var itemId = item.attr('id');
             var itemClass = item.data('class');
             var itemIdClass = '';
@@ -308,22 +319,6 @@
         }
         
         /**
-         * Returns breadcrumb from canvas until item
-         * 
-         * @param {object} item
-         * @returns {string}
-         */
-        function getSelectorBreadcrumb(item) {
-            var result = '';
-            
-            if (!isCanvas(item)) {
-                result = getSelectorBreadcrumb(item.parent());
-            }
-            
-            return result + '<a href="' + item.data('hash') + '">' + getIdClass(item) + '</a> <span class="jca-pointer">></span> ';
-        }
-        
-        /**
          * Returns a unique hash
          * 
          * @returns {string}
@@ -340,6 +335,16 @@
         }
         
         /**
+         * Renders selector breadcrumb to view
+         * 
+         * @param {object} item
+         * @returns {undefined}
+         */
+        function setSelectorBreadcrumb(item) {
+            $('.jca-selector-breadcrumb').html(generateSelectorBreadcrumb(item));
+        }
+        
+        /**
          * Sets pixel dimension in jca-button-col
          * 
          * @param {object} item
@@ -347,8 +352,7 @@
          */
         function setPixelDimensions(item) {
             if (isCanvas(item)) {
-                $('.jca-button-col .jca-top-val').text('0px;');
-                $('.jca-button-col .jca-left-val').text('0px;');
+                $('.jca-button-col .jca-top-val,.jca-button-col .jca-left-val').text('0px;');
             } else {
                 $('.jca-button-col .jca-top-val').text(parseInt(item.css('top')).toFixed(0) + 'px;');
                 $('.jca-button-col .jca-left-val').text(parseInt(item.css('left')).toFixed(0) + 'px;');
@@ -380,7 +384,7 @@
                         $('#jca-css').html(getCss(item));
                         $('#jca-html').html(getHtml(item));
                         thisCanvas.show();
-                        $('.jca-selector-breadcrumb').html(getSelectorBreadcrumb(item));
+                        setSelectorBreadcrumb(item);
                         setPixelDimensions(item);
                         if (!$(ui.helper).hasClass('jca-active-element')) $(ui.helper).addClass('jca-active-element');
                     }
@@ -396,19 +400,18 @@
         function setItemStyle() {
             if ($('.jca-active-element').length) {
                 var item = $('.jca-active-element');
-                item.css('top', $('[name="jca_top"]').val() + '%');
-                item.css('left', $('[name="jca_left"]').val() + '%');
-                item.css('width', $('[name="jca_width"]').val() + '%');
-                item.css('height', $('[name="jca_height"]').val() + '%');
+                item.css({
+                    top: $('[name="jca_top"]').val() + '%',
+                    left: $('[name="jca_left"]').val() + '%',
+                    width: $('[name="jca_width"]').val() + '%',
+                    height: $('[name="jca_height"]').val() + '%'
+                });
                 thisCanvas.hide();
                 $('#jca-css').html(getCss(item));
                 thisCanvas.show();
                 setPixelDimensions(item);
             } else {
-                $('[name="jca_top"]').val('');
-                $('[name="jca_left"]').val('');
-                $('[name="jca_width"]').val('');
-                $('[name="jca_height"]').val('');
+                $('[name="jca_top"],[name="jca_left"],[name="jca_width"],[name="jca_height"]').val('');
                 setPixelDimensions(thisCanvas);
             }
         }
