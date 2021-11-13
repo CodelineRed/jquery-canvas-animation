@@ -60,6 +60,7 @@ JavaScript ([jquery.canvas-animation.js](https://github.com/InsanityMeetsHH/jque
 $('#canvas').canvasAnimation({
     steps: [
         {
+            name: '',        // a unique name to use in combination with .jca-goto
             addClass: '',    // adds one or more classes to #canvas ('foo bar' adds 2 classes)
             removeClass: '', // remove one or more classes from #canvas ('foo bar' removes 2 classes)
             duration: 500,   // duration of this step (milliseconds, default: 500)
@@ -71,6 +72,7 @@ $('#canvas').canvasAnimation({
     infinite: true, // if true: plays animation infinite
     autoplay: true, // if true: plays animation instantly
     controls: true, // if true: adds controls to canvas
+    canvasClick: true, // if true: animation starts by clicking on canvas
     editor: {
         enable: false, // if true: show editor on page
         wrapper: '.jca-editor-container' // editor wrapper class
@@ -93,6 +95,7 @@ $('#canvas').canvasAnimation({
     forwardButton: '.jca-forward', // class of step forward button
     expandButton: '.jca-expand', // class of expand button
     editorButton: '.jca-editor', // class of edit button
+    gotoButton: '.jca-goto', // class of goto button / add data-step="step-name"
     classDone: 'jca-done', // is set if the animation is done
     classWait: 'jca-wait', // is set if autoplay : false and animation is never played or user clicked on reset button
     classForward: 'jca-forward', // is set if user clicked forward
@@ -183,5 +186,3 @@ $('#canvas').canvasAnimationEditor({
 * [CSS Canvas](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/css/canvas.css)
 * [CSS Animation](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/css/animation.css)
 * [JavaScript](https://github.com/InsanityMeetsHH/jquery-canvas-animation/blob/master/example/js/scripts.js)
-
-**This software is in development. Could have bugs.**

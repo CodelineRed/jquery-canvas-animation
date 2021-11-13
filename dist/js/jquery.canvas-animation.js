@@ -15,6 +15,7 @@
             infinite: true, // if true: plays animation infinite
             autoplay: true, // if true: plays animation instantly
             controls: true, // if true: adds controls to canvas
+            canvasClick: true, // if true: animation starts by clicking on canvas
             editor: {
                 enable: false, // if true: show editor on page
                 wrapper: '.jca-editor-container' // editor wrapper class
@@ -37,6 +38,7 @@
             forwardButton: '.jca-forward', // class of step forward button
             expandButton: '.jca-expand', // class of expand button
             editorButton: '.jca-editor', // class of edit button
+            gotoButton: '.jca-goto', // class of goto button / add data-step="step-name"
             classDone: 'jca-done', // is set if the animation is done
             classWait: 'jca-wait', // is set if autoplay : false and animation is never played or user clicked on reset button
             classForward: 'jca-forward', // is set if user clicked forward
@@ -233,7 +235,7 @@
             callCallback(config.onWait);
         }
         
-        if (!config.editor.enable) {
+        if (!config.editor.enable && config.canvasClick) {
             // click on canvas
             thisCanvas.click(function() {
                 config.infinite = infinite;
@@ -346,5 +348,19 @@
                 }
             });
         }
+        
+        // click on goto step
+        thisCanvas.find(config.gotoButton).click(function() {
+            if (thisCanvas.hasClass(config.classDone) || thisCanvas.hasClass(config.classWait)) {
+                let thisGoto = this;
+                $.each(config.steps, function(key, value) {
+                    if (typeof value.name === 'string' && value.name === $(thisGoto).data('step')) {
+                        thisCanvas.addClass(value.addClass);
+                        thisCanvas.removeClass(value.removeClass);
+                        return false;
+                    }
+                });
+            }
+        });
     };
 })(jQuery);

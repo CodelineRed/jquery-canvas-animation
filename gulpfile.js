@@ -2,7 +2,7 @@ var gulp        = require('gulp');
 var minifyCss   = require('gulp-clean-css');
 var concat      = require('gulp-concat');
 var rename      = require('gulp-rename');
-var sass        = require('gulp-sass');
+var sass        = require('gulp-sass')(require('sass'));
 var less        = require('gulp-less');
 var uglify      = require('gulp-uglify');
 var browserSync = require('browser-sync').create();
@@ -62,11 +62,11 @@ gulp.task('watch', function() {
     gulp.watch(sourcePath + 'js/**', ['js', 'js-bundle']);
 });
 
-// production
-gulp.task('prod', ['scss', 'js', 'js-bundle']);
+// build
+gulp.task('build', gulp.series('scss', 'js', 'js-bundle'));
 
 // default task if just called gulp (incl. Watch)
-gulp.task('default', ['scss', 'js', 'js-bundle', 'watch'], function() {
+gulp.task('default', gulp.series('scss', 'js', 'js-bundle', 'watch'), function() {
     // start browsersync
     browserSync.init({
         proxy: localServer
